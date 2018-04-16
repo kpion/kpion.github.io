@@ -4,8 +4,61 @@
         <title>konradpapala.github.io</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="assets/bulma/bulma.css">
     </head>
     <body>
-        <div>testing</div>
+		<section class="hero is-info">
+				<div class="hero-body">
+					<div class="container">				
+						<h1 class = 'title is-1'>Just things, by me.</h1>
+						<p class="subtitle">
+							Playing with github pages, in progress...
+						</p>
+					</div>
+				</div>		
+			<div id = 'hide-me' class = 'notification is-danger'>Doesn't work without Javascript enabled</div>
+		</section>
+
+
+		<section class="section">
+			<h2 class = 'title is-2'>Projects</h2>
+			<div id = 'projects'>
+
+			</div>
+		</section>	
+        <script>
+            (function () {
+				//the 'enable darn js' message box  
+                document.querySelector('#hide-me').style.display = 'none';
+				
+                let projects = [
+                    {
+                        name: 'Calculator',
+                        href: 'calculator/',
+                        description: 'The most advanced, live, AI calculator you can find online today!'
+                    },
+                    {
+                        name: 'Things',
+                        href: 'https://github.com/konradpapala/things/',
+                        description: 'Hints, code snippets'
+                    }
+					
+                ];
+				let html = ''; 
+                projects.forEach(function (project) {
+                    let htmlAdd = `
+						<div class = 'box'>
+							<h3 class = 'title is-3' ><a href = '${project.href}'>${project.name}</a></h3>
+							<p>${project.description}</p>
+							<p><a href = '${project.href}'>Enter</a></p>
+						</div>
+					`;
+		
+					html += htmlAdd;
+                });
+				document.querySelector('#projects').innerHTML = html;
+            })();
+
+		</script>
     </body>
 </html>

@@ -8,43 +8,126 @@ You can enter 6/2*(1+2) to finally find the answer!!!
         <title>Calculator</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../assets/bulma/bulma.css">
+		<style>
+			.is-vertical-center {
+			  display: flex;
+			  align-items: center;
+			}			
+			
+			.k-ml-10{
+				margin-left:10px;
+			}
+			
+		</style>
     </head>
     <body>
-        <p title = 'e.g. 2 + (4 * 10)'>Expression:</p>
+		<section class="hero is-info">
+				<div class="hero-body">
+					<div class="container">				
+						<h1 class = 'title is-1'>Live  (realtime) calculator.</h1>
+						<p class="subtitle">
+							Robust, dynamic, streamline and other buzzwords.
+						</p>
+					</div>
+				</div>		
+			</section>
         
-        <div id = "calc">
-            <input type = "text" id = 'formula'>
-        </div>
-        
-        <p>Result:</p>
-        <div id ='result'></div>
-        
-    <script>
-        let hformula = document.querySelector('#formula');
-        function calculate(){
-            try {
-                var result = eval(hformula.value); 
-            } catch (e) {
-                if (e instanceof SyntaxError) {
-                    var result = 'Syntax error';
-                }
-            }  
-            if(typeof result === 'undefined'){
-                result = 'Syntax Error';
-            }
-            
-            //this is the most essential part.
-            if(result == 42){
-                result = result + ' (Answer to life the universe and everything)';
-            }
-            document.querySelector('#result').textContent = result;            
-        }
-        hformula.addEventListener('keyup', function(key){
-            calculate();
-        });
-        calculate();
-    </script>  
-    
+		 <section class = 'section'>
+			<form id = 'form-calc'>
+				<div class="field">
+					<label class="label">Expression:</label>
+					<div class="control">				
+						<textarea class="textarea" id = 'formula' placeholder = '2 + \n(4 * 10)'></textarea>
+					</div>
+				</div>
+				
+				<div class="field" id = 'eval-field'>
+					<div class="control is-vertical-center">	
+						<button  class = 'button is-info is-5' id ='eval'>eval</button>
+						<label class = 'checkbox k-ml-10'>
+							<input type = 'checkbox' class = 'checkbox' id = 'eval-auto' checked> 
+							Auto
+						</label>
+					</div>
+				</div>
+
+				
+				<div class="field " >
+					<label class="label">Result:</label>
+					<div class="control is-vertical-center">	
+						<input type = 'text' class = 'text' id ='result'>
+						<label class = 'checkbox k-ml-10'>
+							<input type = 'checkbox' class = 'checkbox k-ml-10' id = 'result-format'> 
+							Format
+						</label>
+					</div>
+				</div>
+			</form>
+
+			
+		</section>
+		<script>
+			(function(){
+				//trick to make placeholders in textareas multiline if needed
+				let textAreas = document.getElementsByTagName('textarea');
+				Array.prototype.forEach.call(textAreas, function(elem) {
+					elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
+				});			
+
+				let hformula = document.querySelector('#form-calc #formula');
+				let hevalAuto = document.querySelector('#form-calc #eval-auto');
+				let hresultFormat  = document.querySelector('#form-calc #result-format');
+
+				function calculate() {
+					let result = '';
+					let isOK = true;
+					try {
+						if(hformula.value === ''){
+							result = '';
+						}else{
+							result = eval(hformula.value);
+						}
+					} catch (e) {
+						if (e instanceof SyntaxError) {
+							result = 'Syntax error';
+							isOK = false;
+						}
+					}
+					if (typeof result === 'undefined') {
+						isOK = false;
+						result = 'Syntax Error (undefined)';
+					}
+					if(isOK){
+						if(hresultFormat.checked){
+							result = result.toLocaleString('pl-PL');
+						}
+					}
+					//this is the most essential part.
+					if (result == 42) {
+						//result = result + ' (Answer to life the universe and everything)';
+					}
+					document.querySelector('#result').value = result;
+				}
+				//any change, like on keyup, paste, third mouse button etc:
+				hformula.addEventListener('input', function (key) {
+					if(hevalAuto.checked){
+						calculate();
+					}
+				});
+
+				document.querySelector('#form-calc #eval').addEventListener('click', function (event) {
+					event.preventDefault();
+					calculate();
+				});
+
+				document.querySelector('#form-calc #result-format').addEventListener('click', function (event) {
+					calculate();
+				});			
+				calculate();
+			})();	
+		</script>  
+
     </body>
-  
+
 </html>
