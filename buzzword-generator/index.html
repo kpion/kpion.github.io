@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+@credits: yoda icon: https://www.shareicon.net/jedi-muppet-force-yoda-94604
+-->
+<html>
+    <head>
+        <title>Javascript Buzzword generator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="buzzword-generator.js"></script>
+		<style>
+			.section{
+				padding-bottom: 0.5em;
+			}
+			
+			.p-b-2em{
+				padding-bottom:2em;
+			}
+			.p-t-2em{
+				padding-top:2em;
+			}
+			
+		</style>
+    </head>
+    <body>
+		
+		
+		<section class="hero is-info">
+			<div class="hero-body">
+				<div class="container">				
+					<h1 class = 'title is-1'>Javascript Buzzword generator</h1>
+					<p class="subtitle" id = 'h1-subtitle'>
+						Javascript required.
+					</p>
+					<p class="subtitle is-6 is-pulled-right" id = 'h1-subtitle'>
+						Just playing with bulma css
+					</p>
+					
+				</div>
+			</div>		
+		</section>
+		
+	
+		
+		<section class="section" id = 'examples'>
+			
+			<h3 class = 'title is-4'>Examples</h3>
+			<table class = 'table'>
+				<thead>
+					<tr>
+						<td>Buzzword</td><td>Code</td>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+			
+			<form class = 'form' id = 'form-examples'>
+				<button class = 'button is-info' id = 'generate'>Generate</button>
+			</form>
+		</section>
+		
+		<section class="section" id = 'custom'>
+			<div class="container">
+				<h3 class = 'title is-4'>Custom</h3>
+				<p id = 'custom-result' class = 'p-b-2em'></p>
+				<form class = 'form' id = 'form-custom'>
+					<div id = 'form-custom-inputs'></div>
+					
+					<div class="field p-t-2em">
+						<button class = 'button is-info' id = 'generate-custom'>Generate</button>
+					</div>
+				</form>			
+			</div>	
+		</section>
+		
+		
+		<script>
+			(function(){
+				let buzzwordGenerator = new BuzzwordGenerator();
+				document.querySelector('#h1-subtitle').innerHTML = buzzwordGenerator.get('adjectivesOnly') + ' buzzword generator';
+				let buzzwordTypes = buzzwordGenerator.configs.default.order;
+				
+				/////////////////////
+				//example section
+				function addExample(buzzwords, code){
+                   
+					let html = `
+						<tr>
+							<td>${buzzwords}</td>
+							<td>${code}</td>
+						</tr>
+					`;
+					document.querySelector('#examples tbody').innerHTML += html;
+				}
+				
+				function generate(){
+					document.querySelector('#examples tbody').innerHTML = '';
+					addExample(buzzwordGenerator.get(), "buzzwordGenerator.get()");
+					addExample(buzzwordGenerator.get('verbose'), "buzzwordGenerator.get('verbose')");
+					addExample(buzzwordGenerator.get(buzzwordGenerator.getRandomizedConfig(3)),"buzzwordGenerator.get( buzzwordGenerator.getRandomizedConfig(3) )");
+					addExample(buzzwordGenerator.get('yoda'), `buzzwordGenerator.get('yoda')`);					
+				}
+				generate();
+				
+				document.querySelector('#generate').addEventListener('click', function (event) {
+					event.preventDefault();
+					generate();
+				});	
+				
+				////////////////////////
+				//custom section
+				
+				//building form
+				function buildCustomForm(){
+					
+					function addInput(label, id, inputType = 'text', value = ''){
+						let addHtml = `
+							<div class="field is-horizontal">
+								<div class="field-label is-normal">
+									<label class = 'label'>${label}</label>
+								</div>
+								<div class="field-body">
+									<div class="field">
+										<div class="control ">
+											<input type = '${inputType}' class = 'text' id = '${id}' value = '${value}'>
+										</div>
+									</div>
+								</div>
+							</div>					
+						`;
+						document.querySelector('#form-custom #form-custom-inputs').innerHTML +=  addHtml;						
+					} 
+					buzzwordTypes.forEach(type => {
+						let typeLabel = 'Num of ' + type.charAt(0).toUpperCase() + type.slice(1) + ': ';
+						addInput(typeLabel, type, 'number', 1);
+					});
+					addInput('Separator: ', 'separator', 'text', ', ');
+					addInput('Last word prefix: ', 'putBeforeLast', 'text', ' and ');
+				};	
+				buildCustomForm();
+				
+				function generateCustom(){
+					let config = {};
+					buzzwordTypes.forEach((type => {
+						let elem = document.querySelector('#custom #' + type);
+						if(elem){
+							config[type] = document.querySelector('#custom #' + type).value;
+						}
+					}));
+					config.separator = document.querySelector('#custom #separator').value;
+					config.putBeforeLast = document.querySelector('#custom #putBeforeLast').value;
+					
+					let buzzwords = buzzwordGenerator.get(config);
+					document.querySelector('#custom #custom-result').innerHTML = buzzwords;
+				} 
+				generateCustom();
+				document.querySelector('#generate-custom').addEventListener('click', function (event) {
+					event.preventDefault();
+					generateCustom();
+				});				
+			}());
+					
+		</script>	
+    </body>
+</html>

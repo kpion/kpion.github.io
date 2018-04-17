@@ -9,6 +9,7 @@ You can enter 6/2*(1+2) to finally find the answer!!!
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="../assets/bulma/bulma.css">
+		<script type="text/javascript" src="../buzzword-generator/buzzword-generator.js"></script>	
 		<style>
 			.is-vertical-center {
 			  display: flex;
@@ -26,7 +27,7 @@ You can enter 6/2*(1+2) to finally find the answer!!!
 				<div class="hero-body">
 					<div class="container">				
 						<h1 class = 'title is-1'>Live  (realtime) calculator.</h1>
-						<p class="subtitle">
+						<p class="subtitle" id = 'h1-subtitle'>
 							Robust, dynamic, streamline and other buzzwords.
 						</p>
 					</div>
@@ -103,10 +104,7 @@ You can enter 6/2*(1+2) to finally find the answer!!!
 							result = result.toLocaleString('pl-PL');
 						}
 					}
-					//this is the most essential part.
-					if (result == 42) {
-						//result = result + ' (Answer to life the universe and everything)';
-					}
+
 					document.querySelector('#result').value = result;
 				}
 				//any change, like on keyup, paste, third mouse button etc:
@@ -125,6 +123,15 @@ You can enter 6/2*(1+2) to finally find the answer!!!
 					calculate();
 				});			
 				calculate();
+				
+				//teeeeeeeeeeeeeeests:
+				let buzzwordGenerator = new BuzzwordGenerator();
+				document.querySelector('#h1-subtitle').innerHTML = buzzwordGenerator.get({
+					adverbs: 1, //how many adverbs etc...
+					verbs: 0,
+					adjectives: 4,
+					nouns: 0,
+				}) + ` calculator (and other <a class = 'has-text-dark' href = 'https://konradpapala.github.io/buzzword-generator'>buzzwords</a>)`;
 			})();	
 		</script>  
 
