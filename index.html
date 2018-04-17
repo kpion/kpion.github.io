@@ -8,14 +8,14 @@
     </head>
     <body>
 		<section class="hero is-info">
-				<div class="hero-body">
-					<div class="container">				
-						<h1 class = 'title is-1'>Just things, by me.</h1>
-						<p class="subtitle">
-							Playing with github pages, in progress...
-						</p>
-					</div>
-				</div>		
+			<div class="hero-body">
+				<div class="container">				
+					<h1 class = 'title is-1'>Just things, by me.</h1>
+					<p class="subtitle">
+						Playing with github pages, in progress...
+					</p>
+				</div>
+			</div>		
 			<div id = 'hide-me' class = 'notification is-danger'>Doesn't work without Javascript enabled</div>
 		</section>
 
@@ -27,42 +27,49 @@
 			</div>
 		</section>	
         <script>
-            (function () {
+			(function () {
 				//the 'enable darn js' message box  
-                document.querySelector('#hide-me').style.display = 'none';
-				
-                let projects = [
-                    {
-                        name: 'Calculator',
-                        href: 'calculator/',
-                        description: 'The most advanced, live, AI calculator you can find online today!'
-                    },
-                    {
-                        name: 'Buzzword generator',
-                        href: 'buzzword-generator',
-                        description: 'Javascript buzzword-generator (just playing with bulma css)'
-                    },					
-                    {
-                        name: 'Things',
-                        href: 'https://github.com/konradpapala/things/',
-                        description: 'Hints, code snippets'
-                    }
+				document.querySelector('#hide-me').style.display = 'none';
+
+				let projects = [
+					{
+						name: 'Calculator',
+						href: 'calculator/',
+						description: 'The most advanced, live, AI calculator you can find online today!'
+					},
+					{
+						name: 'Buzzword generator',
+						href: 'buzzword-generator',
+						description: 'Javascript buzzword-generator (just playing with bulma css)'
+					},
+					{
+						name: 'Things',
+						href: 'https://github.com/konradpapala/things/',
+						description: 'Hints, code snippets'
+					},
+					{
+						name: 'This site',
+						href: 'https://github.com/konradpapala/konradpapala.github.io',
+						description: 'This site, including some of the above projects, on github.com'
+					}
+
 					
-                ];
-				let html = ''; 
-                projects.forEach(function (project) {
-                    let htmlAdd = `
+
+				];
+				let html = '';
+				projects.forEach(function (project) {
+					let htmlAdd = `
 						<div class = 'box'>
 							<h3 class = 'title is-3' ><a href = '${project.href}'>${project.name}</a></h3>
 							<p>${project.description}</p>
 							<p><a href = '${project.href}'>Enter</a></p>
 						</div>
 					`;
-		
+
 					html += htmlAdd;
-                });
+				});
 				document.querySelector('#projects').innerHTML = html;
-            })();
+			})();
 
 		</script>
     </body>
