@@ -42,7 +42,17 @@
 		</section>
 		
 	
-		
+		<section class = 'section' id = 'usage'>
+			<h2 class = 'title is-4'>Usage</h2>
+			<pre class = 'code'>
+				&lt;script src="buzzword-generator.js"&gt;&lt;/script&gt;
+				&lt;div id = 'buzzwords'&gt;&lt;/div&gt;
+				&lt;script&gt;
+					let buzzwordGenerator = new BuzzwordGenerator();
+					document.querySelector('#buzzwords').innerHTML = buzzwordGenerator.get();
+				&lt;/script&gt;
+			</pre>
+		</section>
 		<section class="section" id = 'examples'>
 			
 			<h3 class = 'title is-4'>Examples</h3>
@@ -84,7 +94,7 @@
 				let buzzwordTypes = buzzwordGenerator.configs.default.order;
 				
 				/////////////////////
-				//example section
+				//examples section
 				function addExample(buzzwords, code){
                    
 					let html = `
@@ -99,9 +109,10 @@
 				function generate(){
 					document.querySelector('#examples tbody').innerHTML = '';
 					addExample(buzzwordGenerator.get(), "buzzwordGenerator.get()");
+					addExample(buzzwordGenerator.get('yoda'), `buzzwordGenerator.get('yoda')`);					
 					addExample(buzzwordGenerator.get('verbose'), "buzzwordGenerator.get('verbose')");
 					addExample(buzzwordGenerator.get(buzzwordGenerator.getRandomizedConfig(3)),"buzzwordGenerator.get( buzzwordGenerator.getRandomizedConfig(3) )");
-					addExample(buzzwordGenerator.get('yoda'), `buzzwordGenerator.get('yoda')`);					
+					
 				}
 				generate();
 				
