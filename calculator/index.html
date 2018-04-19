@@ -9,7 +9,6 @@ You can enter 6/2*(1+2) to finally find the answer!!!
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="../assets/bulma/bulma.css">
-		<script type="text/javascript" src="../buzzword-generator/buzzword-generator.js"></script>	
 		<style>
 			.is-vertical-center {
 			  display: flex;
@@ -27,21 +26,44 @@ You can enter 6/2*(1+2) to finally find the answer!!!
 				<div class="hero-body">
 					<div class="container">				
 						<h1 class = 'title is-1'>Realtime calculator.</h1>
-						<p class="subtitle" id = 'h1-subtitle'>
-							Robust, dynamic, streamline and other buzzwords.
-						</p>
+						<h2 class="subtitle is-6 is-pulled-right">
+							Just playing with bulma css and learning new (for me) things in js, i.e. es 6/7/8
+						</h2>
 					</div>
 				</div>		
 			</section>
         
 		 <section class = 'section'>
+			 
 			<form id = 'form-calc'>
+				
 				<div class="field">
 					<label class="label">Expression:</label>
 					<div class="control">				
-						<textarea class="textarea" id = 'formula' placeholder = '2 + \n(4 * 10)'></textarea>
+						<textarea class="textarea" id = 'formula' placeholder = '2 + \n(4 * 10)' ></textarea>
 					</div>
 				</div>
+				
+				<!-- tools -->
+				<div id = 'tools' class = 'is-pulled-right columns'>
+					
+					<div class="column">	
+						<select id = "expression-helper">
+							<option value = "">Functions &amp; constants...</option>
+						</select>	
+					</div>
+					
+					<div class="column">	
+						<button id = "expression-clear" class = 'button is-small is-danger'>
+							<span class="icon"><span class = 'delete is-small'></span></span> 
+							<span>Clear</span>
+						</button>	
+				
+					</div>	
+				</div>
+				
+				<div class = 'is-clearfix'></div>
+				
 				
 				<div class="field" id = 'eval-field'>
 					<div class="control is-vertical-center">	
@@ -70,46 +92,103 @@ You can enter 6/2*(1+2) to finally find the answer!!!
 		</section>
 		<script>
 			(function(){
-				//trick to make placeholders in textareas multiline if needed
-				let textAreas = document.getElementsByTagName('textarea');
-				Array.prototype.forEach.call(textAreas, function(elem) {
-					elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
-				});			
 
-				let hformula = document.querySelector('#form-calc #formula');
-				let hevalAuto = document.querySelector('#form-calc #eval-auto');
-				let hresultFormat  = document.querySelector('#form-calc #result-format');
+				//utils
+				
+				//insert given text into given element, at cursor position
+				function inputInsertText(elem, text){
+					let propToChange = 'value';
+					if (typeof elem.selectionStart !== 'undefined') {
+						elem.focus();//ms edge needs this
+						let sProp = elem[propToChange];
+						let startPos = elem.selectionStart;
+						let endPos = elem.selectionEnd;
+						elem[propToChange] = sProp.substring(0, startPos)
+							+ text
+							+ sProp.substring( endPos, sProp.length);					
+						elem.selectionStart = elem.selectionEnd = startPos + text.length; 
+					}
+				}
+				
+				//adds a separator to a number every 'thousand' e.g. 1000000 will change to 1 000 000   
+				function numberAddSeparators(nStr, comma = ' ')
+				{
+					nStr += '';
+					let x = nStr.split('.');
+					let x1 = x[0];
+					let x2 = x.length > 1 ? '.' + x[1] : '';
+					let  rgx = /(\d+)(\d{3})/;
+					while (rgx.test(x1)) {
+						x1 = x1.replace(rgx, '$1' + comma + '$2');
+					}
+					return x1 + x2;
+				}	
 
-				function calculate() {
+				let elFormula = document.querySelector('#form-calc #formula');
+				let elEvalAuto = document.querySelector('#form-calc #eval-auto');
+				let elResultFormat  = document.querySelector('#form-calc #result-format');
+				let elExpressionHelper = document.querySelector('#form-calc #expression-helper');
+
+				function calculate(onlyIfEvalAutoEnabled = false) {
+					if(onlyIfEvalAutoEnabled && !elEvalAuto.checked){
+						return;
+					}
 					let result = '';
 					let isOK = true;
 					try {
-						if(hformula.value === ''){
+						if(elFormula.value === ''){
 							result = '';
 						}else{
-							result = eval(hformula.value);
+							result = eval(elFormula.value);
 						}
 					} catch (e) {
-						if (e instanceof SyntaxError) {
-							result = 'Syntax error';
-							isOK = false;
-						}
+						result = `Syntax error (${e.message})`;
 					}
 					if (typeof result === 'undefined') {
 						isOK = false;
 						result = 'Syntax Error (undefined)';
 					}
 					if(isOK){
-						if(hresultFormat.checked){
-							result = result.toLocaleString('pl-PL');
+						if(elResultFormat.checked){
+							result = numberAddSeparators(result);
 						}
 					}
 
 					document.querySelector('#result').value = result;
 				}
-				//any change, like on keyup, paste, third mouse button etc:
-				hformula.addEventListener('input', function (key) {
-					if(hevalAuto.checked){
+				
+				//////////////////////////////////////
+				//Math functions to globals, plus the expression helper
+				
+				function addMathStuffToGlobal(){
+					let mathProps = Object.getOwnPropertyNames(Math);
+					let expressionHelperHtml = '';
+					mathProps.forEach ((propName) => {
+						if (typeof window[propName] === 'undefined'){
+							let prop = Math[propName];
+							window[propName] = prop;
+							let val = propName;//def
+							let valDisplay = propName;//def
+							if(typeof prop === 'function'){
+								val = val + '()';
+								valDisplay = valDisplay + '()';
+							}
+							expressionHelperHtml += `
+								<option value = '${val}'>
+									${valDisplay}
+								</option>
+							`;
+						}
+					});
+					elExpressionHelper.innerHTML += expressionHelperHtml;
+				};
+				
+			
+				///////////////////////////////////////////////////
+				//events
+				
+				elFormula.addEventListener('input', function (key) {
+					if(elEvalAuto.checked){
 						calculate();
 					}
 				});
@@ -122,18 +201,39 @@ You can enter 6/2*(1+2) to finally find the answer!!!
 				document.querySelector('#form-calc #result-format').addEventListener('click', function (event) {
 					calculate();
 				});			
+				
+				
+				//expression helper
+				elExpressionHelper.addEventListener('change', (event,b) => {
+					let val = event.target.children[event.target.selectedIndex].value;
+					inputInsertText(elFormula,val);
+					calculate(true);
+				});
+				
+				//clear button
+				document.querySelector('#form-calc #expression-clear').addEventListener('click', (e) => {
+					e.preventDefault();
+					elFormula.value = '';
+					calculate();
+					elFormula.focus();
+				});
+				
+				/////////////////////////////////////////////////////
+				//lets go
+				
+				//trick to make placeholders in textareas multiline if needed
+				let textAreas = document.getElementsByTagName('textarea');
+				Array.prototype.forEach.call(textAreas, function(elem) {
+					elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
+				});
+				
+		
+				elFormula.focus();
+				addMathStuffToGlobal();
 				calculate();
 				
-				//teeeeeeeeeeeeeeests:
-				let buzzwordGenerator = new BuzzwordGenerator();
-				document.querySelector('#h1-subtitle').innerHTML = buzzwordGenerator.get({
-					adverbs: 1, //how many adverbs etc...
-					verbs: 0,
-					adjectives: 4,
-					nouns: 0,
-					putBeforeLast: false,
-				}) + ` calculator (and other <a class = 'is-italic' href = '../buzzword-generator'>buzzwords</a>)`;
 			})();	
+		
 		</script>  
 
     </body>
