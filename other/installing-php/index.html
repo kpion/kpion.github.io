@@ -4,64 +4,28 @@
         <title>Install newest (or any) PHP on Ubuntu</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!--
 		
-		-->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" rel="stylesheet" type="text/css">
-		
-
-		<style>
-			body {
-				margin: 0 auto;
-				max-width: 50em;
-				
-			}			
-			
-			.hero{
-				background-color: #0078e7;
-				padding:10px;
-				
-			}
-			.section{
-				padding-bottom: 0.5em;
-			}
-			
-			.p-b-2em{
-				padding-bottom:2em;
-			}
-			.p-t-2em{
-				padding-top:2em;
-			}
-			code {
-				display: block;
-				white-space: pre-wrap;   
-				color:#e9322d;
-				margin-bottom:10px;
-				font-size: 1em;
-				padding:10px;
-			}		
-			
-			#php-version-custom{
-				display: none;
-				width: 20%;
-				
-			}
-			
-		</style>
+		<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+		<link rel = "stylesheet" href = "assets/milligram/milligram.min.css">
+		<link rel = "stylesheet" href="assets/main.css">
+		<link rel = "stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	
     </head>
     <body>
 		
-		
-		<section class="hero">
+		<header class = "container" id = "home">
 			<h1>Install newest (or any) PHP on Ubuntu</h1>
 			<h2 class="">
-				I.e. shell command generator. Also playing with the milligram css framework. 
-			</h2>
-		</section>
+				<small>
+				I.e. shell command generator. <br>Also playing with the milligram css framework. 
+				</small>
+			</h2>			
+		</header>
 		
-		<section class = 'section' id = 'generator'>
+		
+		<section class = 'container' id = 'generator'>
 			
-			<h2 class = 'title is-4' >Installing version from official repo, probably outdated</h2> 
+			<h2 class = ''>Installing version from official repo, probably outdated</h2> 
 			
 			<p>
 				If you simply want to install whatever version of PHP is available in the official repos
@@ -73,7 +37,7 @@
 sudo apt-get upgrade
 sudo apt-get install php</code>
 			<br>
-			<h2 class = 'title is-4'>Installing any version, including the newest stable one</h2> 
+			<h2 class = ''>Installing any version, including the newest stable one</h2> 
 			
 			<p>But, if you want to grab a different version (including the newest one), you need to first add an unofficial, 
 				but really well esablished and well maintained <a  href = 'https://launchpad.net/~ondrej/+archive/ubuntu/php'>PPA by Ondřej Surý</a>:
@@ -94,95 +58,97 @@ apt-get update</code>
 			</form>
 
 			<br>
-			<h3 class = 'title is-6'>Command #1:</h3>
+			<h3 class = ''>Command #1:</h3>
 			<code id = 'code-1'>
 				
 			</code>
-			<pre id = 'info' class = 'has-text-grey is-size-7'></pre>
+			
+			<pre id = 'info' class = ''></pre>
 			<br><br>
 			<p>
 				You may need additional modules depending on your applications. 
 				The most commonly used modules can be installed with the following
 			</p>
 			<br>
-			<h3 class = 'title is-6'>Command #2:</h3>
+			<h3 class = ''>Command #2:</h3>
 			
 			<code id = 'code-2'>
 				
 			</code>
-			
-			<script>
-				(function(){
-					let versionSelectEl = document.querySelector('#generator #php-version');
-					let versionCustomEl = document.querySelector('#php-version-custom');
-					
-					function generate(phpVersion = null){
-						if(!phpVersion){
-							phpVersion = versionSelectEl.children[versionSelectEl.selectedIndex].value;
-							if(phpVersion === 'custom'){
-								phpVersion = versionCustomEl.value;
-							}
-						}
-						let code1 = `sudo apt-get install php${phpVersion}`;
-					
-					let info = `The above command will install the following packages:
- libapache2-mod-php${phpVersion}
- php${phpVersion}-cli
- php${phpVersion}-common
- php${phpVersion}-json
- php${phpVersion}-opcache
- php${phpVersion}-readline
- and probably a few others, like libargon2, libsodium, libssl1 	
-`;	
-						let code2 = `sudo apt-get install php-pear php${phpVersion}-curl php${phpVersion}-dev php${phpVersion}-gd php${phpVersion}-mbstring php${phpVersion}-zip php${phpVersion}-mysql php${phpVersion}-xml`;
+	</section>
 
-						document.querySelector('#generator #code-1').textContent =  code1;
-						document.querySelector('#generator #info').textContent =  info;
-						document.querySelector('#generator #code-2').textContent =  code2;
-					};
-					
-					
-					//lets go:
-					
-					
-					let hVersions = '';
-					
-					[5.6, '7.0', 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9].forEach((version) => {
-						let display = version;
-						let selected = '';
-						if(version == 5.6){
-							display += ' (outdated!)';
-						}
-						if(version == 7.2){
-							selected = 'selected';
-						}
-						if(version > 7.2){
-							display += ' *';
-						}
-						
-						hVersions += `
-							<option value = '${version}' ${selected}>${display}</option>
-						`;
-					});
-					hVersions += `<option value = 'custom'>Custom</option>`;
-					versionSelectEl.innerHTML = hVersions;
-					versionSelectEl.addEventListener('change', event => {
-						let phpVersion = event.target.children[event.target.selectedIndex].value;
-						versionCustomEl.style.display = 'hidden';//def.
+		<script>
+			(function(){
+				let versionSelectEl = document.querySelector('#generator #php-version');
+				let versionCustomEl = document.querySelector('#php-version-custom');
+
+				function generate(phpVersion = null){
+					if(!phpVersion){
+						phpVersion = versionSelectEl.children[versionSelectEl.selectedIndex].value;
 						if(phpVersion === 'custom'){
-							 versionCustomEl.style.display = 'inline-block';
-							 versionCustomEl.focus();
+							phpVersion = versionCustomEl.value;
 						}
-						
-						generate();
-					});
-					versionCustomEl.addEventListener('input', event => {
-						generate();
-					});
+					}
+					let code1 = `sudo apt-get install php${phpVersion}`;
+
+				let info = `The above command will install the following packages:
+libapache2-mod-php${phpVersion}
+php${phpVersion}-cli
+php${phpVersion}-common
+php${phpVersion}-json
+php${phpVersion}-opcache
+php${phpVersion}-readline
+and probably a few others, like libargon2, libsodium, libssl1 	
+`;	
+					let code2 = `sudo apt-get install php-pear php${phpVersion}-curl php${phpVersion}-dev php${phpVersion}-gd php${phpVersion}-mbstring php${phpVersion}-zip php${phpVersion}-mysql php${phpVersion}-xml`;
+
+					document.querySelector('#generator #code-1').textContent =  code1;
+					document.querySelector('#generator #info').textContent =  info;
+					document.querySelector('#generator #code-2').textContent =  code2;
+				};
+
+
+				//lets go:
+
+
+				let hVersions = '';
+
+				[5.6, '7.0', 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9].forEach((version) => {
+					let display = version;
+					let selected = '';
+					if(version == 5.6){
+						display += ' (outdated!)';
+					}
+					if(version == 7.2){
+						selected = 'selected';
+					}
+					if(version > 7.2){
+						display += ' *';
+					}
+
+					hVersions += `
+						<option value = '${version}' ${selected}>${display}</option>
+					`;
+				});
+				hVersions += `<option value = 'custom'>Custom</option>`;
+				versionSelectEl.innerHTML = hVersions;
+				versionSelectEl.addEventListener('change', event => {
+					let phpVersion = event.target.children[event.target.selectedIndex].value;
+					versionCustomEl.style.display = 'hidden';//def.
+					if(phpVersion === 'custom'){
+						 versionCustomEl.style.display = 'inline-block';
+						 versionCustomEl.focus();
+					}
+
 					generate();
-				})();
-			</script>
-		</section>
+				});
+				versionCustomEl.addEventListener('input', event => {
+					generate();
+				});
+				generate();
+			})();
+		</script>
+
 		
     </body>
 </html>		

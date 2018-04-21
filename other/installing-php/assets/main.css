@@ -1,0 +1,45 @@
+.container {
+    max-width: 80.0rem;
+    padding-bottom: 7.5rem;
+    padding-top: 7.5rem;
+}
+
+#home {
+    background: #f4f5f6;
+    height: 300px;
+    position: relative;
+    max-height: 100vh;
+    min-width: 40vw;
+}
+
+.thumbnail {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+code {
+    display: block;
+    white-space: pre-wrap;   
+    color:#e9322d;
+    margin-bottom:10px;
+    font-size: 1em;
+    padding:10px;
+}		
+
+#php-version-custom{
+    display: none;
+    width: 20%;
+
+}
+
+pre{
+    padding:10px;
+}
+
+pre#info{
+    color:#aaa;
+    font-size:0.8em;
+    border-left:none;
+}
