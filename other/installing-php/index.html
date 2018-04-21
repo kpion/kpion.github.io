@@ -22,75 +22,100 @@
 			</h2>			
 		</header>
 		
-		
-		<section class = 'container' id = 'generator'>
-			
-			<h2 class = ''>Installing version from official repo, probably outdated</h2> 
-			
-			<p>
-				If you simply want to install whatever version of PHP is available in the official repos
-			(currently, as of April 2018, the default PHP release in the Ubuntu 16.04 repositories is PHP 7.0, and in 
-			Ubuntu 18.04 it is 7.2) then the following commands (plus the below additional libs) should be enough (update & upgrade optional):
-			</p>
-			
-			<code>sudo apt-get update
+		<div class = 'wrap'>
+			<section class = 'container' id = 'generator'>
+				<br>
+				<h2 id = 'before-anything'>Before you do anything</h2>
+
+				<p>If you already have some PHP installed, you might want to save a list of all the packages related to php (here we save it to a /tmp/php-packages.txt file):</p>
+				<code>dpkg -l | grep php | tee /tmp/php-packages.txt</code>
+
+				<p>You should also backup everything, or at least php-related stuff, like /etc/php directory</p>
+
+				<p>Optional: you might also want to remove your current version with:</p>
+
+				<code>sudo apt purge 'php5*'</code>	
+				Or:
+				<code>sudo apt purge 'php7*'</code>	
+				<p>Depending on version you already have.</p>
+
+				<h2 class = ''>Installing version from official repo, probably outdated</h2> 
+
+				<p>
+					If you simply want to install whatever version of PHP is available in the official repos
+				(currently, as of April 2018, the default PHP release in the Ubuntu 16.04 repositories is PHP 7.0, and in 
+				Ubuntu 18.04 it is 7.2) then the following commands (plus the below additional libs) should be enough (update & upgrade optional):
+				</p>
+
+				<code>sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install php</code>
-			<br>
-			<h2 class = ''>Installing any version, including the newest stable one</h2> 
-			
-			<p>But, if you want to grab a different version (including the newest one), you need to first add an unofficial, 
-				but really well esablished and well maintained <a  href = 'https://launchpad.net/~ondrej/+archive/ubuntu/php'>PPA by Ondřej Surý</a>:
-			</p>
-			<code>add-apt-repository ppa:ondrej/php
+				<br>
+				<h2 class = ''>Installing any version, including the newest stable one</h2> 
+
+				<p>But, if you want to grab a different version (including the newest one), you need to first add an unofficial, 
+					but really well esablished and well maintained <a  href = 'https://launchpad.net/~ondrej/+archive/ubuntu/php'>PPA by Ondřej Surý</a>:
+				</p>
+				<code>add-apt-repository ppa:ondrej/php
 apt-get update</code>
-			
-			
-			<form>
-				<label>And now select the version you want: </label>
-				<select  id = 'php-version'></select>
-				<input type = 'text' id = 'php-version-custom' placeholder = 'Custom version'>
-				<div>
-					<small>
-						* versions >= 7.3 were not available at the time when this script was created, but maybe they are now
-					</small>
-				</div>
-			</form>
 
-			<br>
-			<h3 class = ''>Command #1:</h3>
-			<code id = 'code-1'>
+
+				<form>
+					<label>And now select the version you want: </label>
+					<select  id = 'php-version'></select>
+					<input type = 'text' id = 'php-version-custom' placeholder = 'Custom version'>
+					<div>
+						<small>
+							* versions >= 7.3 were not available at the time when this script was created, but maybe they are now
+						</small>
+					</div>
+				</form>
+
+				<br>
+				<h3 class = ''>Install command #1:</h3>
+				<code id = 'code-1'>
+
+				</code>
+
+				<pre id = 'info' class = '' style = 'display:none'></pre>
+				<br><br>
+				<p>
+					You may need additional modules depending on your applications. 
+					The most commonly used modules can be installed with the following
+				</p>
 				
-			</code>
-			
-			<pre id = 'info' class = ''></pre>
-			<br><br>
-			<p>
-				You may need additional modules depending on your applications. 
-				The most commonly used modules can be installed with the following
-			</p>
-			<br>
-			<h3 class = ''>Command #2:</h3>
-			
-			<code id = 'code-2'>
-				
-			</code>
-	</section>
+				<h3 class = ''>Install command #2:</h3>
 
-		<script>
-			(function(){
-				let versionSelectEl = document.querySelector('#generator #php-version');
-				let versionCustomEl = document.querySelector('#php-version-custom');
+				<code id = 'code-2'>
 
-				function generate(phpVersion = null){
-					if(!phpVersion){
-						phpVersion = versionSelectEl.children[versionSelectEl.selectedIndex].value;
-						if(phpVersion === 'custom'){
-							phpVersion = versionCustomEl.value;
-						}
+				</code>
+
+				<h2>Other things</h2>
+
+				<p>
+					Now you might want to open the the file you created in <a href = '#before-anything'>Before you do anything step</a> with
+				</p>					
+
+				<code>less /tmp/php-packages.txt</code>
+				<p>And install them, if needed<p>
+
+		</section>
+	</div>
+
+	<script>
+		(function(){
+			let versionSelectEl = document.querySelector('#generator #php-version');
+			let versionCustomEl = document.querySelector('#php-version-custom');
+
+			function generate(phpVersion = null){
+				if(!phpVersion){
+					phpVersion = versionSelectEl.children[versionSelectEl.selectedIndex].value;
+					if(phpVersion === 'custom'){
+						phpVersion = versionCustomEl.value;
 					}
-					let code1 = `sudo apt-get install php${phpVersion}`;
-
+				}
+				let code1 = `sudo apt-get install php${phpVersion} php${phpVersion}-common`;
+				/*
 				let info = `The above command will install the following packages:
 libapache2-mod-php${phpVersion}
 php${phpVersion}-cli
@@ -100,54 +125,55 @@ php${phpVersion}-opcache
 php${phpVersion}-readline
 and probably a few others, like libargon2, libsodium, libssl1 	
 `;	
-					let code2 = `sudo apt-get install php-pear php${phpVersion}-curl php${phpVersion}-dev php${phpVersion}-gd php${phpVersion}-mbstring php${phpVersion}-zip php${phpVersion}-mysql php${phpVersion}-xml`;
+				*/
+				let code2 = `sudo apt-get install php-pear php${phpVersion}-curl php${phpVersion}-dev php${phpVersion}-gd php${phpVersion}-mbstring php${phpVersion}-zip php${phpVersion}-mysql php${phpVersion}-xml`;
 
-					document.querySelector('#generator #code-1').textContent =  code1;
-					document.querySelector('#generator #info').textContent =  info;
-					document.querySelector('#generator #code-2').textContent =  code2;
-				};
-
-
-				//lets go:
+				document.querySelector('#generator #code-1').textContent =  code1;
+				//document.querySelector('#generator #info').textContent =  info;
+				document.querySelector('#generator #code-2').textContent =  code2;
+			};
 
 
-				let hVersions = '';
+			//lets go:
 
-				[5.6, '7.0', 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9].forEach((version) => {
-					let display = version;
-					let selected = '';
-					if(version == 5.6){
-						display += ' (outdated!)';
-					}
-					if(version == 7.2){
-						selected = 'selected';
-					}
-					if(version > 7.2){
-						display += ' *';
-					}
 
-					hVersions += `
-						<option value = '${version}' ${selected}>${display}</option>
-					`;
-				});
-				hVersions += `<option value = 'custom'>Custom</option>`;
-				versionSelectEl.innerHTML = hVersions;
-				versionSelectEl.addEventListener('change', event => {
-					let phpVersion = event.target.children[event.target.selectedIndex].value;
-					versionCustomEl.style.display = 'hidden';//def.
-					if(phpVersion === 'custom'){
-						 versionCustomEl.style.display = 'inline-block';
-						 versionCustomEl.focus();
-					}
+			let hVersions = '';
 
-					generate();
-				});
-				versionCustomEl.addEventListener('input', event => {
-					generate();
-				});
+			[5.6, '7.0', 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9].forEach((version) => {
+				let display = version;
+				let selected = '';
+				if(version == 5.6){
+					display += ' (outdated!)';
+				}
+				if(version == 7.2){
+					selected = 'selected';
+				}
+				if(version > 7.2){
+					display += ' *';
+				}
+
+				hVersions += `
+					<option value = '${version}' ${selected}>${display}</option>
+				`;
+			});
+			hVersions += `<option value = 'custom'>Custom</option>`;
+			versionSelectEl.innerHTML = hVersions;
+			versionSelectEl.addEventListener('change', event => {
+				let phpVersion = event.target.children[event.target.selectedIndex].value;
+				versionCustomEl.style.display = 'hidden';//def.
+				if(phpVersion === 'custom'){
+					 versionCustomEl.style.display = 'inline-block';
+					 versionCustomEl.focus();
+				}
+
 				generate();
-			})();
-		</script>
+			});
+			versionCustomEl.addEventListener('input', event => {
+				generate();
+			});
+			generate();
+		})();
+	</script>
 
 		
     </body>
