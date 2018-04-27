@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+	<meta charset="UTF-8">
+	<title>---- [name me] ----</title>
+	<style>
+		body {
+			margin: 0 auto;
+			max-width: 50em;
+			color:#444;
+		}	
+		
+		a {
+			text-decoration: none;
+			color: #04a6d7;
+		}
+		.description {
+			font-size:0.8em;
+		}
+		
+		.more{
+			text-align: right;
+		}
+		h1 {
+			margin-left:2em;
+		}
+		
+		h2 {
+			font-size:1.1em;
+		}
+	</style>
+  </head>
+
+  <body>
+
+	<div>
+		<h1>---- [name me] ----</h1>
+		<form method = 'get'>
+			
+			<input type  = 'text' id = 'title' name = 'title' placeholder = 'New page title' >
+			<button id = 'title-btn'>Go</button>
+		</form>			
+		<div class = 'description'>
+			<h2>About</h2>
+			
+			<p>
+				This is just a "category" page for various Tree tabs plugins for Firefox / Opera.<br>
+			</p>				
+			
+			<p>
+				Simply save this file locally, then open it in a new tab, change the title (to e.g. [current], [later], or [time suckers (FB and the like)]) and use this new tab as a category, where you put your other tabs.
+			</p>
+			
+			<p>
+				Tree Style Tab (Firefox): <a href = 'https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/'>https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/</a><br>
+				Or Tree Tabs (Opera): <a href = 'https://addons.opera.com/en/extensions/details/tree-tabs/'>https://addons.opera.com/en/extensions/details/tree-tabs</a><br>
+			</p>
+			
+			<p>
+				It just takes the title param from url and changes its own &lt;title&gt;&lt;/title&gt; tag content, which is then reflected in those plugins.<br>
+			</p>
+			
+			<p class = 'more'>
+				<a href = 'https://konradpapala.github.io/other/name-me/name-me.html'>src</a>
+			</p>
+		</div>
+		
+	</div>
+	<script>
+		(function(){
+			//just a shortcut:
+			let sel = (q) => document.querySelector(q);
+			
+			/*
+			changing <html><head><title> content
+			@param {string} newTitle - if null, we'll take it from the form' input
+			*/
+			function changeDocTitle(newTitle = null){
+				if(newTitle === null) {
+					newTitle = sel('#title').value;
+				}
+				sel('head title').textContent = newTitle;
+				sel('h1').textContent = newTitle;
+			}
+		
+			//what we have now in GET params?
+			
+			var url = new URL(window.location.href);
+			var paramTitle = url.searchParams.get("title");		
+			
+			if(paramTitle){
+				sel('#title').value = paramTitle;
+				changeDocTitle();
+			}
+			
+			//on change, on submit events		
+			sel('#title').focus();
+			
+			sel('#title').addEventListener('input',(event) => {
+				changeDocTitle();
+			});
+			sel('#title-btn').addEventListener('click',(event) => {
+				changeDocTitle(null,true);
+			});		
+			
+			
+		})();
+
+		
+	</script>
+  </body>
+
+</html> 
