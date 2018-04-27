@@ -8,27 +8,27 @@
 		body {
 			margin: 0 auto;
 			max-width: 50em;
-			color:#444;
+			color:#555;
 		}	
 		
 		a {
 			text-decoration: none;
 			color: #04a6d7;
 		}
-		.description {
-			font-size:0.8em;
+		.description, .more {
+			font-size:80%;
 		}
 		
-		.more{
-			text-align: right;
+		.description p{
+			margin-left:10px;
 		}
+		
+
 		h1 {
 			margin-left:2em;
 		}
+
 		
-		h2 {
-			font-size:1.1em;
-		}
 	</style>
   </head>
 
@@ -45,27 +45,29 @@
 			<h2>About</h2>
 			
 			<p>
-				This is just a "category" page for various Tree tabs plugins for Firefox / Opera.<br>
+				This is just a "category" page for various "Tree tabs" plugins for Firefox or Opera.<br>
 			</p>				
 			
 			<p>
-				Simply save this file locally, then open it in a new tab, change the title (to e.g. [current], [later], or [time suckers (FB and the like)]) and use this new tab as a category, where you put your other tabs.
+				Simply save this file locally, then open it in a new tab, change the title (to e.g. [current], [later], or [time suckers (FB)]) and use this new tab as a category, where you put your other tabs.
 			</p>
 			
 			<p>
-				Tree Style Tab (Firefox): <a href = 'https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/'>https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/</a><br>
+				It just takes the title param from URL and changes its own &lt;title&gt;&lt;/title&gt; tag, which is then reflected in those plugins.<br>
+			</p>			
+			
+			<h3>Works with:</h3>
+			<p>
+				Tree Style Tab (Firefox): <a href = 'https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/'>https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab</a><br>
 				Or Tree Tabs (Opera): <a href = 'https://addons.opera.com/en/extensions/details/tree-tabs/'>https://addons.opera.com/en/extensions/details/tree-tabs</a><br>
+				And probably others as well.
 			</p>
 			
-			<p>
-				It just takes the title param from url and changes its own &lt;title&gt;&lt;/title&gt; tag content, which is then reflected in those plugins.<br>
-			</p>
-			
-			<p class = 'more'>
-				<a href = 'https://konradpapala.github.io/other/name-me/name-me.html'>src</a>
-			</p>
+
 		</div>
-		
+		<p class = 'more'>
+				<a href = 'https://konradpapala.github.io/other/name-me/name-me.html'>src</a>
+		</p>
 	</div>
 	<script>
 		(function(){
@@ -74,7 +76,7 @@
 			
 			/*
 			changing <html><head><title> content
-			@param {string} newTitle - if null, we'll take it from the form' input
+			@param {string} newTitle - if null, we'll take it from the form's input
 			*/
 			function changeDocTitle(newTitle = null){
 				if(newTitle === null) {
@@ -100,6 +102,7 @@
 			sel('#title').addEventListener('input',(event) => {
 				changeDocTitle();
 			});
+			
 			sel('#title-btn').addEventListener('click',(event) => {
 				changeDocTitle(null,true);
 			});		
