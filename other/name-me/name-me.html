@@ -24,18 +24,29 @@
 		}
 		
 
-		h1 {
-			margin-left:2em;
+		h1,main > h2 {
+			margin-left:7%;	
 		}
-
-		
+		h1 {
+			
+		}
+		main > h2{
+			display:none; /*we'll show it only when h1 changes to our title'*/
+			font-size:105%;
+			margin-top:0px;
+			margin-bottom:20px;
+			position:relative;
+			top:-19px;
+		}
 	</style>
   </head>
 
   <body>
 
-	<div>
-		<h1>---- [name me] ----</h1>
+	<main>
+		<h1>Tree Style Tab category</h1>
+		<h2>Tree Style Tab category page</h2>
+		
 		<form method = 'get'>
 			<input type  = 'text' id = 'title' name = 'title' placeholder = 'New page title' >
 			<button id = 'title-btn'>Go</button>
@@ -68,7 +79,7 @@
 		<p class = 'more'>
 				<a href = 'https://kpion.github.io/other/name-me/name-me.html'>src</a>
 		</p>
-	</div>
+	</main>
 	<script>
 		(function(){
 			//just a shortcut:
@@ -92,8 +103,10 @@
 			var paramTitle = url.searchParams.get("title");		
 			
 			if(paramTitle){
+				sel('main > h2').style.display = 'block';
 				sel('#title').value = paramTitle;
 				changeDocTitle();
+				
 			}
 			
 			//on change, on submit events		
