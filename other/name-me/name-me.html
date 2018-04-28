@@ -3,7 +3,7 @@
 <html>
   <head>
 	<meta charset="UTF-8">
-	<title>---- [name me] ----</title>
+	<title>Tree Style Tab category</title>
 	<style>
 		body {
 			margin: 0 auto;
@@ -77,7 +77,7 @@
 
 		</div>
 		<p class = 'more'>
-				<a href = 'https://kpion.github.io/other/name-me/name-me.html'>src</a>
+				<a href = 'https://kpion.github.io#name-me'>src</a>
 		</p>
 	</main>
 	<script>
@@ -106,7 +106,8 @@
 				sel('main > h2').style.display = 'block';
 				sel('#title').value = paramTitle;
 				changeDocTitle();
-				
+			}else{//nothing given in url
+				sel('head title').textContent = '--- name me ---';
 			}
 			
 			//on change, on submit events		
