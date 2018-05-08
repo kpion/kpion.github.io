@@ -15,15 +15,20 @@
 			}			
 			#demoScriptDisplay{
 				height:500px;
-				font-size:80%;
+				font-size:90%;
+				font-family:monospace;
 			}
 
+			#showOutputAsText{
+				display:none;
+				height:200px;
+			}
 			footer{
 				height:150px;
 			}
 			
 
-
+			/* -------------------------------------------- */        
 			#yalog-wrapper{
 				position: fixed;
 				box-sizing: border-box;
@@ -58,6 +63,7 @@
 				background:none;
 				margin-bottom:0px;
 				margin-top:0px;
+				font-family:monospace;
 			}
 
 
@@ -120,7 +126,10 @@
 		<textarea id = 'demoScriptDisplay'>
 			
 		</textarea>
-		<button id = 'runDemoScript'>Run it again</button>
+		<button id = 'runDemoScriptBtn'>Run it again</button>
+		<br>
+		<button id = 'showAsTextBtn' title = 'Which can be later sent... somewhere' >Show logged logs</button>
+		<textarea id = 'showOutputAsText'></textarea>
 		
 		<footer>
 		
@@ -177,12 +186,21 @@
 		</script>
 		<script>
 			let sel = (s) => document.querySelector(s);
+			
+			
 			let script = sel('#demoScript').textContent;
 			script = script.replace(/\t/g,'');
 			sel('#demoScriptDisplay').textContent = script;
-			sel('#runDemoScript').addEventListener('click',()=>{
+			sel('#runDemoScriptBtn').addEventListener('click',()=>{
 				let displayScript = sel('#demoScriptDisplay').value;
 				eval(displayScript);
+			});
+			
+			sel('#showAsTextBtn').addEventListener('click',() => {
+				let asText = yalog.JSONStringify(yalog.story(), null, '  ');
+				let asTextEl = sel ('#showOutputAsText');
+				asTextEl.style.display = 'block';
+				asTextEl.textContent = asText;
 			});
 		</script>
     </body>
