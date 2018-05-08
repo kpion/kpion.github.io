@@ -183,7 +183,7 @@
 			//this is another big module/class/whatever.
 			function fakingSomeOtherModuleBeingLate(yalog = null){
 				setTimeout(()=>{
-					yalog.style('color:#DC4C46').log("I'm a different module, and late to the party, but it should be clear who am I");
+					yalog.style('color:#DC4C46').log("I'm a different module, and late to the party, but it should be clear who I am");
 					evenAnotherModule(yalog.clone('AnotherYetModule'));
 				},1000);
 				function evenAnotherModule(yalog = null){
