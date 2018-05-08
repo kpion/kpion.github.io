@@ -5,7 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
-		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">	
+		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">
+		<!-- DON'T use this link, download the file instead --> 
 		<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
 		<style>
 			
@@ -127,14 +128,18 @@
 		<textarea id = 'demoScriptDisplay'>
 			
 		</textarea>
+		
 		<button id = 'runDemoScriptBtn'>Run it again</button>
 		<br>
+		
 		<button id = 'showAsTextBtn' title = 'Which can be later sent... somewhere' >Show logged logs</button>
 		<textarea id = 'showOutputAsText'></textarea>
+		<br>
 		
-		<footer>
+		<button id = 'randomHuskyBtn'>Random husky!</button>
+		<br>
 		
-		</footer>
+		<footer></footer>
 		
 
 		<div id = "yalog-wrapper" class = ''>
@@ -151,7 +156,16 @@
 			</div>
 		</div>
 
-
+		<script>
+			
+			//not really related to the yalog itself.
+			
+			let baseUrl = window.location.href;
+			if(baseUrl.slice(-1) !== '/'){
+				baseUrl += '/';
+			}
+		</script>
+		
 		<script id = 'demoScript'>
 			
 			yalog.addPlugin('site');//optional logging on website
@@ -187,34 +201,52 @@
 					evenAnotherModule(yalog.clone('AnotherYetModule'));
 				},1000);
 				function evenAnotherModule(yalog = null){
-					yalog.style('color:#034F84').log("I also do have a name");
+					yalog.style('color:#034F84').log("I have a name too");
 				}
 			}
 			
 			//this clone and all its subclone will be indented and with "italics".
 			let clone = yalog.css('indent i').clone("Laggard Module",{outputName:true});//we want the name to be outputted to the console
 			fakingSomeOtherModuleBeingLate(clone);
-			
 
 		</script>
 		<script>
-			let sel = (s) => document.querySelector(s);
 			
+			//not really related to the yalog itself. Just this site's stuff.
+			(function(){
+
+				let sel = (s) => document.querySelector(s);
+				
+				//"run again":
+				
+				let script = sel('#demoScript').textContent;
+				script = script.replace(/\t\t\t/g,'');
+				sel('#demoScriptDisplay').textContent = script;
+				sel('#runDemoScriptBtn').addEventListener('click',()=>{
+					let displayScript = sel('#demoScriptDisplay').value;
+					eval(displayScript);
+				});
+				
+				//show all the output as jsoned array.
+				sel('#showAsTextBtn').addEventListener('click',() => {
+					let asText = yalog.JSONStringify(yalog.story(), null, '  ');
+					let asTextEl = sel ('#showOutputAsText');
+					asTextEl.style.display = 'block';
+					asTextEl.textContent = asText;
+				});					
+				
+				sel('#randomHuskyBtn').addEventListener('click',() => {
+					yalog.css('h2').log('Here you go, a random husky!');
+					let rand = Math.round(Math.random() * 10);//only 10 huskies there.
+					yalog.style(`
+						background: url("${baseUrl}assets/images/huskies/husky-${rand}.jpg") no-repeat;
+						padding: 140px 180px;
 			
-			let script = sel('#demoScript').textContent;
-			script = script.replace(/\t\t\t/g,'');
-			sel('#demoScriptDisplay').textContent = script;
-			sel('#runDemoScriptBtn').addEventListener('click',()=>{
-				let displayScript = sel('#demoScriptDisplay').value;
-				eval(displayScript);
-			});
+					`).log('');
 			
-			sel('#showAsTextBtn').addEventListener('click',() => {
-				let asText = yalog.JSONStringify(yalog.story(), null, '  ');
-				let asTextEl = sel ('#showOutputAsText');
-				asTextEl.style.display = 'block';
-				asTextEl.textContent = asText;
-			});
+				});
+			})();
+			
 		</script>
     </body>
 </html>
