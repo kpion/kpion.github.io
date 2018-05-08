@@ -45,12 +45,19 @@
 				display:flex;
 				font-size:70%;
 			}
+			
+			#yalog-wrapper #yalog-controls-toggle{
+				font-size:130%;
+				font-weight:bold;
+				cursor:pointer;
+			}
+			/*
 			#yalog-wrapper #yalog-controls-toggle::after{
 				content:'↗'
 			}
 			#yalog-wrapper.yalog-enabled #yalog-controls-toggle::after{
 				content:'↙'
-			}			
+			}*/			
 			#yalog-wrapper #yalog-stats{
 				display: flex;
 			}
@@ -90,7 +97,7 @@
 			Optional site log:<br>
 			<div id = 'yalog-console'></div>
 			<div id = 'yalog-controls'>
-				<span id  = 'yalog-controls-toggle' onclick = "document.querySelector('#yalog-wrapper').classList.toggle ('yalog-enabled')"></span>
+				<span id  = 'yalog-controls-toggle' onclick = "document.querySelector('#yalog-wrapper').classList.toggle ('yalog-enabled')">Toggle</span>
 				<div id = 'yalog-stats'>
 					<span id = 'yalog-stats-total' title = 'Total'>0</span>
 					<span id = 'yalog-stats-error' title = 'Errors'>0</span>
