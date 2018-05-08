@@ -7,14 +7,31 @@
 		<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">	
 		<script src = 'https://rawgit.com/kpion/yalog/master/yalog.js'></script>
-<style>
+		<style>
+			
+			body {
+			  margin: 0 auto;
+			  max-width: 70em;
+			}			
+			#demoScriptDisplay{
+				height:500px;
+				font-size:80%;
+			}
+
+			footer{
+				height:100px;
+			}
+			
+
+
 			#yalog-wrapper{
 				position: fixed;
 				box-sizing: border-box;
 				padding: 15px 15px 15px 15px;
 				border-radius: 15px;
 				bottom: 5px;
-				width: 98%;
+				/*width: 98%;*/
+				width: 60%;
 				min-height: 50px;
 				display: flex;
 				flex-direction: column;	
@@ -31,13 +48,15 @@
 				margin-bottom: 30px;
 				display:none;
 			}
-			
+
 			#yalog-wrapper #yalog-console pre {
 				padding-bottom:8px;
 				border-bottom: 1px dotted #ccc; 
+				border-left:none;
+				background:none;
 			}
-			
-			
+
+
 			#yalog-wrapper.yalog-enabled #yalog-console{
 				display:block;
 			}
@@ -45,7 +64,7 @@
 				display:flex;
 				font-size:70%;
 			}
-			
+
 			#yalog-wrapper #yalog-controls-toggle{
 				font-size:130%;
 				font-weight:bold;
@@ -63,15 +82,15 @@
 			}
 			#yalog-wrapper #yalog-controls-toggle{
 				border-radius: 5px;
-				
-				
+
+
 			}
 			#yalog-wrapper #yalog-stats span{
 				margin-left:5px;
 				padding:5px 10px;
 				color:black;
 				border-radius: 5px;
-			
+
 			}
 			#yalog-wrapper #yalog-stats #yalog-stats-total{
 				background-color:#fbfbfb;
@@ -85,19 +104,30 @@
 			#yalog-wrapper #yalog-stats #yalog-stats-other{
 				background-color:#1E90FF;
 			}			
-			
+
 		</style>		
     </head>
     <body>
         <h1>Yalog demo</h1>
 		<h2>In progress...</h2>
 		<p>See console</p>
+
+		<h2>Here is the code being in use:</h2>
+		<textarea id = 'demoScriptDisplay'>
+			
+		</textarea>
+		<button id = 'runDemoScript'>Run it again</button>
 		
+		<footer>
+		
+		</footer>
+		
+
 		<div id = "yalog-wrapper" class = ''>
 			Optional site log:<br>
 			<div id = 'yalog-console'></div>
 			<div id = 'yalog-controls'>
-				<span id  = 'yalog-controls-toggle' onclick = "document.querySelector('#yalog-wrapper').classList.toggle ('yalog-enabled')">Toggle</span>
+				<span id  = 'yalog-controls-toggle' onclick = "document.querySelector('#yalog-wrapper').classList.toggle('yalog-enabled')">Toggle</span>
 				<div id = 'yalog-stats'>
 					<span id = 'yalog-stats-total' title = 'Total'>0</span>
 					<span id = 'yalog-stats-error' title = 'Errors'>0</span>
@@ -106,45 +136,50 @@
 				</div>	
 			</div>
 		</div>
-		
-		<script>
+
+
+		<script id = 'demoScript'>
 			//basic tests
-			yalog.name('default',false);
+			yalog.name('default', false);
 			yalog.addPlugin('site');
-			yalog.log('Normal').style({'font-size':'130%'}).log('big');
+			yalog.log('Normal').style({'font-size': '130%'}).log('big');
 			yalog.css('indent').log('indented').css('indent').log('intended 2');
-			/*
-			yalog.style({'font-size':'200%'}).log('big');
-			yalog.log('Normal again');
-			*/
-			yalog.setStyle({'color':'#050'});
+			yalog.setStyle({'color': '#050'});
 			yalog.log('permanently changed color');
-			yalog.style({'text-decoration':'underline'}).log('here too');
+			yalog.style({'text-decoration': 'underline'}).log('here too');
 
 			yalog.cssSelector({
-				'bkg-blue': {'background-color':'rgba(0,0,100,0.5)'},
-				'bkg-green': {'background-color':'rgba(0,100,0,0.5)'},
-				'bar': {'padding': '25px','background-color':'rgba(0,100,0,0.5)'}
+				'bkg-blue': {'background-color': 'rgba(200,200,255,0.3)'},
 			});
-			yalog.css('h1').log('h1 selector');
+			yalog.css('h1 bkg-blue').log('h1 selector');
 			yalog.css('h2').log('h2 selector');
 			yalog.css('h3').log('h3 selector');
-			
+
 			yalog.css('i').log('italic selector').css('h2').log('h2 selector *added*');
-			
+
 			yalog.log('Normally');
-			yalog.setStyle({'color':'#000'});
+			yalog.setStyle({'color': '#000'});
 			yalog.log('Color permanently changed back to normal');
+			
 			/////////////////////
 			//cloning tests
-			
+
 			yalog.css('h1').log("Cloning tests");
-			//yalog.cssSelector();	
-			let clone = yalog.clone();
-			clone.log('This should inherit the style and other stuff');			
-			yalog.warn('warning...');
-			yalog.error('error...');
-			yalog.info('warning...');
+			yalog.warn('warning...').error('error...').info('info...');
+			
+			let clone = yalog.clone("I'm a clone",{outputName:true});
+			clone.log('This should have a different name.');
+			
+		</script>
+		<script>
+			let sel = (s) => document.querySelector(s);
+			let script = sel('#demoScript').textContent;
+			script = script.replace(/\t/g,'');
+			sel('#demoScriptDisplay').textContent = script;
+			sel('#runDemoScript').addEventListener('click',()=>{
+				let displayScript = sel('#demoScriptDisplay').value;
+				eval(displayScript);
+			});
 		</script>
     </body>
 </html>
