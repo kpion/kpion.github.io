@@ -36,7 +36,7 @@
 				border-radius: 15px;
 				bottom: 5px;
 				/*width: 98%;*/
-				width: 60%;
+				width: 93%;
 				min-height: 50px;
 				display: flex;
 				flex-direction: column;	
@@ -153,48 +153,49 @@
 
 
 		<script id = 'demoScript'>
-			yalog.name('default', false);
-			yalog.addPlugin('site');
 			
-			//creating a new selector (class), for displaying "banners" 
-			yalog.cssSelector('banner','margin-bottom:5px;padding:15px 10px;background-color:#1E90FF;border-radius: 5px;font-size:120%;color:white;font-weight:bold');
+			yalog.addPlugin('site');//optional logging on website
+			
+			//creating a new selector (class), for displaying "banners". Just playing here... 
+			yalog.cssSelector('banner','margin-bottom:5px;padding:15px 10px;background-color:#034F84;border-radius: 5px;font-size:120%;color:white;font-weight:bold');
 
 			yalog.css('banner').log("Ya Log");
 			yalog.log('Normal').style({'font-size': '130%'}).log('big').style('color:blue').log('... and blue');
-			
 			//predefined "selectors" (classes):
 			yalog.css('h1').log('h1 selector');
-			yalog.css('indent').log('indented').css('indent').log('indented 2');
 			yalog.css('h2').log('h2 selector');
 			yalog.css('h3').log('h3 selector');			
-			
+			yalog.css('indent').log('indented').css('indent').log('indented 2');
 			
 			//going back to normal
 			yalog.setStyle({'color': '#000'});
-			yalog.log('Color permanently changed back to normal');
+			yalog.log('Color permanently changed to %100 black');
+			
+			yalog.css('h1').group('a group');
+			yalog.log('Inside group');
+			yalog.groupEnd();			
 			
 			/////////////////////
 			//cloning tests for the purpose of another module
 			
-			yalog.css('h1').log("Cloning tests (with a delayed output)");
+			yalog.css('banner').style('background-color:#DC4C46').log("Cloning tests (with a delayed output on the clone)");
+			
+			//this is another big module/class/whatever.
 			function fakingSomeOtherModuleBeingLate(yalog = null){
 				setTimeout(()=>{
-					yalog.
-							style('margin-bottom:5px;padding:15px 10px;background-color:#1E90FF;border-radius: 5px;font-size:120%;color:white;font-weight:bold').
-							log("I'm a different module, and late to the party, but it should be clear who am I");
+					yalog.style('color:#DC4C46').log("I'm a different module, and late to the party, but it should be clear who am I");
 					evenAnotherModule(yalog.clone('AnotherYetModule'));
 				},1000);
 				function evenAnotherModule(yalog = null){
-					yalog.log("I also do have a name");
+					yalog.style('color:#034F84').log("I also do have a name");
 				}
 			}
 			
-			let clone = yalog.css('indent').clone("Laggard Module",{outputName:true});//we want the name to be outputted to the console
+			//this clone and all its subclone will be indented and with "italics".
+			let clone = yalog.css('indent i').clone("Laggard Module",{outputName:true});//we want the name to be outputted to the console
 			fakingSomeOtherModuleBeingLate(clone);
 			
-			yalog.css('h1').group('a group');
-			yalog.log('Inside group');
-			yalog.groupEnd();
+
 		</script>
 		<script>
 			let sel = (s) => document.querySelector(s);
