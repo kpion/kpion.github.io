@@ -153,48 +153,55 @@
 
 
 		<script id = 'demoScript'>
-			//basic tests
 			yalog.name('default', false);
 			yalog.addPlugin('site');
+			
+			//creating a new selector (class), for displaying "banners" 
+			yalog.cssSelector('banner','margin-bottom:5px;padding:15px 10px;background-color:#1E90FF;border-radius: 5px;font-size:120%;color:white;font-weight:bold');
+
+			yalog.css('banner').log("Ya Log");
 			yalog.log('Normal').style({'font-size': '130%'}).log('big').style('color:blue').log('... and blue');
 			
 			//predefined "selectors" (classes):
 			yalog.css('h1').log('h1 selector');
-				yalog.css('indent').log('indented').css('indent').log('intended 2');
+			yalog.css('indent').log('indented').css('indent').log('indented 2');
 			yalog.css('h2').log('h2 selector');
 			yalog.css('h3').log('h3 selector');			
 			
-			yalog.setStyle({'color': '#550'});
-			yalog.log('permanently changed color');
-			yalog.style({'text-decoration': 'underline'}).log('here too');
-			
-			//creating a new selector (class)
-			yalog.cssSelector({
-				'on-blue': {'background-color': 'rgba(200,200,255,0.3)'},
-			});
-
-			yalog.css('i').log('italic selector').css('on-blue').log('our own on-blue selector *added*');
 			
 			//going back to normal
 			yalog.setStyle({'color': '#000'});
 			yalog.log('Color permanently changed back to normal');
 			
 			/////////////////////
-			//cloning tests
-
-			yalog.css('h1').log("Cloning tests");
-			yalog.warn('warning...').error('error...').info('info...');
+			//cloning tests for the purpose of another module
 			
-			let clone = yalog.clone("I'm a clone",{outputName:true});
-			clone.log('This should have a different name.');
+			yalog.css('h1').log("Cloning tests (with a delayed output)");
+			function fakingSomeOtherModuleBeingLate(yalog = null){
+				setTimeout(()=>{
+					yalog.
+							style('margin-bottom:5px;padding:15px 10px;background-color:#1E90FF;border-radius: 5px;font-size:120%;color:white;font-weight:bold').
+							log("I'm a different module, and late to the party, but it should be clear who am I");
+					evenAnotherModule(yalog.clone('AnotherYetModule'));
+				},1000);
+				function evenAnotherModule(yalog = null){
+					yalog.log("I also do have a name");
+				}
+			}
 			
+			let clone = yalog.css('indent').clone("Laggard Module",{outputName:true});//we want the name to be outputted to the console
+			fakingSomeOtherModuleBeingLate(clone);
+			
+			yalog.css('h1').group('a group');
+			yalog.log('Inside group');
+			yalog.groupEnd();
 		</script>
 		<script>
 			let sel = (s) => document.querySelector(s);
 			
 			
 			let script = sel('#demoScript').textContent;
-			script = script.replace(/\t/g,'');
+			script = script.replace(/\t\t\t/g,'');
 			sel('#demoScriptDisplay').textContent = script;
 			sel('#runDemoScriptBtn').addEventListener('click',()=>{
 				let displayScript = sel('#demoScriptDisplay').value;
