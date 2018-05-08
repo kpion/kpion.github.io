@@ -8,16 +8,18 @@
 		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">
 		<!-- DON'T use this link, download the file instead --> 
 		<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
+		
+		<script src = '../assets/ace/ace.js'></script>
 		<style>
 			
 			body {
 			  margin: 0 auto;
 			  max-width: 70em;
 			}			
-			#demoScriptDisplay{
-				height:500px;
-				font-size:90%;
-				font-family:monospace;
+			
+			#demoScriptEdit{
+				width:90%;
+				height:400px;
 			}
 
 			#showOutputAsText{
@@ -124,18 +126,21 @@
 		<p>See developer tools -> console</p>
 		<p>Github src: <a href = 'https://github.com/kpion/yalog'>https://github.com/kpion/yalog</a><p>
 
-		<h2>Here is the code being in use:</h2>
-		<textarea id = 'demoScriptDisplay'>
-			
-		</textarea>
+		<!-- editable js code -->
 		
+		<h2>Code:</h2>
+		<div id = 'demoScriptEdit'>alert('adf');</div>
+		<br>
 		<button id = 'runDemoScriptBtn'>Run it again</button>
 		<br>
+		
+		<!-- log history -->
 		
 		<button id = 'showAsTextBtn' title = 'Which can be later sent... somewhere' >Show logged logs</button>
 		<textarea id = 'showOutputAsText'></textarea>
 		<br>
 		
+		<!-- husky! -->
 		<button id = 'randomHuskyBtn'>Random husky!</button>
 		<br>
 		
@@ -171,10 +176,19 @@
 			yalog.addPlugin('site');//optional logging on website
 			
 			//creating a new selector (class), for displaying "banners". Just playing here... 
-			yalog.cssSelector('banner','margin-bottom:5px;padding:15px 10px;background-color:#034F84;border-radius: 5px;font-size:120%;color:white;font-weight:bold');
+			yalog.cssSelector('banner',`
+				margin-bottom:5px;
+				padding:15px 10px;
+				background-color:#034F84;
+				border-radius: 5px;
+				font-size:120%;
+				color:white;
+				font-weight:bold`);
 
 			yalog.css('banner').log("Ya Log");
-			yalog.log('Normal').style({'font-size': '130%'}).log('big').style('color:blue').log('... and blue');
+			yalog.log('Normal').
+					style({'font-size': '130%'}).log('big').
+					style('color:blue').log('... and blue');
 			//predefined "selectors" (classes):
 			yalog.css('h1').log('h1 selector');
 			yalog.css('h2').log('h2 selector');
@@ -192,12 +206,15 @@
 			/////////////////////
 			//cloning tests for the purpose of another module
 			
-			yalog.css('banner').style('background-color:#DC4C46').log("Cloning tests (with a delayed output on the clone)");
+			yalog.css('banner').
+					style('background-color:#DC4C46').
+					log("Cloning tests (with a delayed output on the clone)");
 			
 			//this is another big module/class/whatever.
 			function fakingSomeOtherModuleBeingLate(yalog = null){
 				setTimeout(()=>{
-					yalog.style('color:#DC4C46').log("I'm a different module, and late to the party, but it should be clear who I am");
+					yalog.style('color:#DC4C46').
+						log("I'm a different module, and late to the party, but it should be clear who I am");
 					evenAnotherModule(yalog.clone('AnotherYetModule'));
 				},1000);
 				function evenAnotherModule(yalog = null){
@@ -206,7 +223,7 @@
 			}
 			
 			//this clone and all its subclone will be indented and with "italics".
-			let clone = yalog.css('indent i').clone("Laggard Module",{outputName:true});//we want the name to be outputted to the console
+			let clone = yalog.css('indent i').clone("Laggard Module",{outputName:true});
 			fakingSomeOtherModuleBeingLate(clone);
 
 		</script>
@@ -214,18 +231,39 @@
 			
 			//not really related to the yalog itself. Just this site's stuff.
 			(function(){
-
+	
 				let sel = (s) => document.querySelector(s);
 				
-				//"run again":
+				//ace editor
+				var editor = ace.edit("demoScriptEdit",{
+					autoScrollEditorIntoView: true,
+					maxLines: 1000,
+					showPrintMargin: false,
+				});
 				
+				//editor.setTheme("ace/theme/twilight");
+				editor.session.setMode("ace/mode/javascript");				
+				
+				//editor and "run again":
+				/*
 				let script = sel('#demoScript').textContent;
 				script = script.replace(/\t\t\t/g,'');
-				sel('#demoScriptDisplay').textContent = script;
+				sel('#demoScriptEdit').textContent = script;
 				sel('#runDemoScriptBtn').addEventListener('click',()=>{
-					let displayScript = sel('#demoScriptDisplay').value;
+					let displayScript = sel('#demoScriptEdit').value;
 					eval(displayScript);
 				});
+				*/
+				//getting our real <script>...<script> code:
+				let script = sel('#demoScript').textContent.trim();
+				script = script.replace(/\t\t\t/g,'');
+				editor.setValue(script);
+				editor.clearSelection();//otherwise it selects all o.O 
+				sel('#runDemoScriptBtn').addEventListener('click',()=>{
+					let displayScript = editor.getValue();
+					eval(displayScript);
+				});			   
+				
 				
 				//show all the output as jsoned array.
 				sel('#showAsTextBtn').addEventListener('click',() => {
