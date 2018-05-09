@@ -13,33 +13,42 @@
 		<style>
 			
 			body {
-			  margin: 0 auto;
-			  max-width: 70em;
-			}			
+			  
+				
+			}		
 			
+			.content{
+				margin: 0 auto;
+				max-width: 60em;
+				margin-bottom:150px;
+			}
+			
+			/* ace edit element */
 			#demoScriptEdit{
 				width:90%;
 				height:400px;
 			}
 
-			#showOutputAsText{
-				display:none;
+			#story{
 				height:200px;
 			}
-			footer{
-				height:150px;
-			}
+
 			
+			.hidden{
+				display:none;
+			}
 
 			/* -------------------------------------------- */        
 			#yalog-wrapper{
 				position: fixed;
 				box-sizing: border-box;
 				padding: 15px 15px 15px 15px;
-				border-radius: 15px;
-				bottom: 5px;
+				border:1px dotted #c0c0c0;
+				border-radius: 2px;
+				bottom: 0px;
+				z-index:10;
 				/*width: 98%;*/
-				width: 93%;
+				width: 100%;
 				min-height: 50px;
 				display: flex;
 				flex-direction: column;	
@@ -121,28 +130,30 @@
 		</style>		
     </head>
     <body>
-        <h1>Yalog demo</h1>
-		<h2>In progress...</h2>
-		<p>See developer tools -> console</p>
-		<p>Github src: <a href = 'https://github.com/kpion/yalog'>https://github.com/kpion/yalog</a><p>
+		<div class = 'content'>
+			<h1>Yalog demo</h1>
+			<h2>In progress...</h2>
+			<p>See developer tools -> console</p>
+			<p>Github src: <a href = 'https://github.com/kpion/yalog'>https://github.com/kpion/yalog</a><p>
 
-		<!-- editable js code -->
-		
-		<h2>Code:</h2>
-		<div id = 'demoScriptEdit'>alert('adf');</div>
-		<br>
-		<button id = 'runDemoScriptBtn'>Run it again</button>
-		<br>
-		
-		<!-- log history -->
-		
-		<button id = 'showAsTextBtn' title = 'Which can be later sent... somewhere' >Show logged logs</button>
-		<textarea id = 'showOutputAsText'></textarea>
-		<br>
-		
-		<!-- husky! -->
-		<button id = 'randomHuskyBtn'>Random husky!</button>
-		<br>
+			<!-- editable js code -->
+
+			<h2>Code:</h2>
+			<div id = 'demoScriptEdit'>alert('adf');</div>
+			<br>
+			<button id = 'runDemoScript'>Run it again</button>
+			<br>
+
+			<!-- log history -->
+
+			<button id = 'showStory' title = 'Which can be later sent... somewhere' >Show logged logs</button>
+			<textarea id = 'story' class = 'hidden'></textarea>
+			<br>
+
+			<!-- husky! -->
+			<button id = 'showRandomHusky'>Random husky!</button>
+			<br>
+		</div>
 		
 		<footer></footer>
 		
@@ -160,7 +171,20 @@
 				</div>	
 			</div>
 		</div>
-
+		<script>
+			//TESTING
+			
+			/*window.onerror = function(message, url, linenumber) {
+				console.log("catched JavaScript error: " + message + " on line " + 
+				linenumber + " for " + url);
+			};*/
+			//seems to work, js errors, not a result of console.error('adf'); but cought by browser. 
+			window.addEventListener('error', (event) => {
+				console.error("JavaScript error: " + event.message + " on line " + 
+				event.lineno + " for " + event.filename);
+				return false;
+			});
+		</script>
 		<script>
 			
 			//not really related to the yalog itself.
@@ -177,8 +201,9 @@
 			
 			//creating a new selector (class), for displaying "banners". Just playing here... 
 			yalog.cssSelector('banner',`
-				margin-bottom:5px;
-				padding:15px 10px;
+				
+				padding:8px 15px;
+				line-height: 40px;
 				background-color:#034F84;
 				border-radius: 5px;
 				font-size:120%;
@@ -187,8 +212,8 @@
 
 			yalog.css('banner').log("Ya Log");
 			yalog.log('Normal').
-					style({'font-size': '130%'}).log('big').
-					style('color:blue').log('... and blue');
+				style({'font-size': '130%'}).log('big').
+				style('color:blue').log('... and blue');
 			//predefined "selectors" (classes):
 			yalog.css('h1').log('h1 selector');
 			yalog.css('h2').log('h2 selector');
@@ -207,8 +232,8 @@
 			//cloning tests for the purpose of another module
 			
 			yalog.css('banner').
-					style('background-color:#DC4C46').
-					log("Cloning tests (with a delayed output on the clone)");
+				style('background-color:#DC4C46').
+				log("Cloning tests (with a delayed output on the clone)");
 			
 			//this is another big module/class/whatever.
 			function fakingSomeOtherModuleBeingLate(yalog = null){
@@ -259,21 +284,24 @@
 				script = script.replace(/\t\t\t/g,'');
 				editor.setValue(script);
 				editor.clearSelection();//otherwise it selects all o.O 
-				sel('#runDemoScriptBtn').addEventListener('click',()=>{
+				sel('#runDemoScript').addEventListener('click',()=>{
 					let displayScript = editor.getValue();
 					eval(displayScript);
 				});			   
 				
 				
 				//show all the output as jsoned array.
-				sel('#showAsTextBtn').addEventListener('click',() => {
-					let asText = yalog.JSONStringify(yalog.story(), null, '  ');
-					let asTextEl = sel ('#showOutputAsText');
-					asTextEl.style.display = 'block';
-					asTextEl.textContent = asText;
+				sel('#showStory').addEventListener('click',() => {
+					let storyEl = sel ('#story');
+					storyEl.classList.toggle('hidden');
+					
+					if(!storyEl.classList.contains('hidden')){
+						let story = yalog.JSONStringify(yalog.story(), null, '  ');
+						storyEl.textContent = story;
+					}
 				});					
 				
-				sel('#randomHuskyBtn').addEventListener('click',() => {
+				sel('#showRandomHusky').addEventListener('click',() => {
 					yalog.css('h2').log('Here you go, a random husky!');
 					let rand = Math.round(Math.random() * 10);//only 10 huskies there.
 					yalog.style(`
