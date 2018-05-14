@@ -6,8 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">
+		
 		<!-- DON'T use this link, download the file instead --> 
+		<script src = '../../yalog/src/yalog.js'></script>
 		<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
+		<script src = 'https://rawgit.com/kpion/yalog/master/src/plugins/page.js'></script>
 		
 		<script src = '../assets/ace/ace.js'></script>
 		<style>
@@ -39,94 +42,7 @@
 			}
 
 			/* -------------------------------------------- */        
-			#yalog-wrapper{
-				position: sticky;
-				box-sizing: border-box;
-				padding: 15px 15px 15px 15px;
-				border:1px dotted #c0c0c0;
-				border-radius: 2px;
-				bottom: 0px;
-				z-index:10;
-				/*width: 98%;*/
-				width: 100%;
-				min-height: 50px;
-				display: flex;
-				flex-direction: column;	
-				/*background-color: black;
-				color: white;*/
-				background-color: #eaeaea;				
-				color:black;
-			}
-			#yalog-wrapper #yalog-console{
-				font-family: Courier;
-				overflow-y: scroll;
-				overflow: auto;
-				height: 45vh;
-				margin-bottom: 30px;
-				display:none;
-				    resize: vertical;
-			}
-
-			#yalog-wrapper #yalog-console pre {
-				font-size:75%;
-				padding:2px 2px;
-				border-bottom: 1px dotted #ccc; 
-				border-left:none;
-				background:none;
-				margin-bottom:0px;
-				margin-top:0px;
-				font-family:monospace;
-			}
-
-
-			#yalog-wrapper.yalog-enabled #yalog-console{
-				display:block;
-			}
-			#yalog-wrapper #yalog-controls {
-				display:flex;
-				font-size:70%;
-			}
-
-			#yalog-wrapper #yalog-controls-toggle{
-				font-size:130%;
-				font-weight:bold;
-				cursor:pointer;
-			}
-			
-			#yalog-wrapper #yalog-controls-toggle::after{
-				content:'↗'
-			}
-			#yalog-wrapper.yalog-enabled #yalog-controls-toggle::after{
-				content:'↙'
-			}			
-			#yalog-wrapper #yalog-stats{
-				display: flex;
-			}
-			#yalog-wrapper #yalog-controls-toggle{
-				border-radius: 5px;
-
-
-			}
-			#yalog-wrapper #yalog-stats span{
-				margin-left:5px;
-				padding:5px 10px;
-				color:black;
-				border-radius: 5px;
-
-			}
-			#yalog-wrapper #yalog-stats #yalog-stats-total{
-				background-color:#fbfbfb;
-			}
-			#yalog-wrapper #yalog-stats #yalog-stats-error{
-				background-color:#DC143C;
-			}
-			#yalog-wrapper #yalog-stats #yalog-stats-warn{
-				background-color:#FFFF66;
-			}			
-			#yalog-wrapper #yalog-stats #yalog-stats-other{
-				background-color:#1E90FF;
-			}			
-
+	
 		</style>		
     </head>
     <body>
@@ -139,9 +55,23 @@
 			<!-- editable js code -->
 
 			<h2>Code:</h2>
-			<div id = 'demoScriptEdit'>alert('adf');</div>
+			<div id = 'demoScriptEdit'></div>
 			<br>
 			<button id = 'runDemoScript'>Run it again</button>
+			<br>
+			
+			<!-- page plugin -->
+
+			<button id = 'enablePagePlugin' >Enable "page" (DOM) plugin</button>
+			<div class = 'hidden' id = 'pagePluginCodeWrapper'>
+				<textarea class = 'readonlyCode' data-ace-config = '{"mode":"ace/mode/html"}'>
+					<!--adding this -->
+					<script src = 'yalog/plugins/page.js'></script>
+					<script>
+						yalog.addPlugin(yalogPage);//optional logging on website	
+					</script>
+				</textarea>
+			</div>
 			<br>
 
 			<!-- log history -->
@@ -158,19 +88,7 @@
 		<footer></footer>
 		
 
-		<div id = "yalog-wrapper" class = ''>
-			Optional site log (click the "Toggle" button):<br><br>
-			<div id = 'yalog-console'></div>
-			<div id = 'yalog-controls'>
-				<span id  = 'yalog-controls-toggle' onclick = "document.querySelector('#yalog-wrapper').classList.toggle('yalog-enabled')">Toggle</span>
-				<div id = 'yalog-stats'>
-					<span id = 'yalog-stats-total' title = 'Total'>0</span>
-					<span id = 'yalog-stats-error' title = 'Errors'>0</span>
-					<span id = 'yalog-stats-warn' title = 'Warnings'>0</span>
-					<span id = 'yalog-stats-other' title = 'Other'>0</span>
-				</div>	
-			</div>
-		</div>
+
 		<script>
 			//TESTING
 			
@@ -179,11 +97,12 @@
 				linenumber + " for " + url);
 			};*/
 			//seems to work, js errors, not a result of console.error('adf'); but cought by browser. 
+			/*
 			window.addEventListener('error', (event) => {
 				console.error("JavaScript error: " + event.message + " on line " + 
 				event.lineno + " for " + event.filename);
 				return false;
-			});
+			});*/
 		</script>
 		<script>
 			
@@ -197,7 +116,6 @@
 		
 		<script id = 'demoScript'>
 			
-			yalog.addPlugin('site');//optional logging on website
 			
 			//creating a new selector (class), for displaying "banners". Just playing here... 
 			yalog.cssSelector('banner',`
@@ -228,6 +146,7 @@
 			yalog.log('Inside group');
 			yalog.groupEnd();			
 			
+			
 			/////////////////////
 			//cloning tests for the purpose of another module
 			
@@ -247,49 +166,70 @@
 				}
 			}
 			
-			//this clone and all its subclone will be indented and with "italics".
+			//this clone and all its subclones will be indented and with "italics".
 			let clone = yalog.css('indent i').clone("Laggard Module",{outputName:true});
 			fakingSomeOtherModuleBeingLate(clone);
 
 		</script>
 		<script>
 			
+			
 			//not really related to the yalog itself. Just this site's stuff.
 			(function(){
-	
+
 				let sel = (s) => document.querySelector(s);
+				let selAll = (s) => document.querySelectorAll(s);
+
 				
-				//ace editor
+				//ace editor for all .readonlyCode elements
+				selAll('.readonlyCode').forEach(el => {
+					let config = el.getAttribute('data-ace-config');
+					config = config?JSON.parse(config):{};
+					el.value = el.value.replace(/^\t\t\t/g,'');
+					let aceEditor = ace.edit(el,{
+						autoScrollEditorIntoView: true,
+						maxLines: 80,
+						showPrintMargin: false,
+						highlightActiveLine: false,
+						readOnly:true,
+					});	
+					aceEditor.session.setUseWorker(false);//hmmm a trick to disable the syntax checker.
+					aceEditor.session.setMode(config.mode?config.mode:"ace/mode/javascript");		
+				})
+					
+				//ace editor for demo script
 				var editor = ace.edit("demoScriptEdit",{
 					autoScrollEditorIntoView: true,
-					maxLines: 1000,
+					maxLines: 80,
 					showPrintMargin: false,
+					highlightActiveLine: false,
+					
 				});
 				
 				//editor.setTheme("ace/theme/twilight");
 				editor.session.setMode("ace/mode/javascript");				
 				
 				//editor and "run again":
-				/*
-				let script = sel('#demoScript').textContent;
-				script = script.replace(/\t\t\t/g,'');
-				sel('#demoScriptEdit').textContent = script;
-				sel('#runDemoScriptBtn').addEventListener('click',()=>{
-					let displayScript = sel('#demoScriptEdit').value;
-					eval(displayScript);
-				});
-				*/
+
 				//getting our real <script>...<script> code:
 				let script = sel('#demoScript').textContent.trim();
 				script = script.replace(/\t\t\t/g,'');
 				editor.setValue(script);
 				editor.clearSelection();//otherwise it selects all o.O 
+				
+				//run it again:
 				sel('#runDemoScript').addEventListener('click',()=>{
 					let displayScript = editor.getValue();
 					eval(displayScript);
 				});			   
 				
+				//add 'page' plugin button
+				sel('#enablePagePlugin').addEventListener('click',()=>{
+					sel('#pagePluginCodeWrapper').classList.remove('hidden');
+					setTimeout(()=>{yalog.addPlugin(yalogPage);},100);
+				})
 				
+				 
 				//show all the output as jsoned array.
 				sel('#showStory').addEventListener('click',() => {
 					let storyEl = sel ('#story');
