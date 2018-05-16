@@ -7,11 +7,14 @@
 		<link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">
 		
-		<!-- DON'T use this link, download the file instead --> 
-		
-		<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
-		<script src = 'https://rawgit.com/kpion/yalog/master/src/plugins/page.js'></script>
-		
+		<!-- DON'T use these links, download the file instead --> 
+		<!--
+			<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
+			<script src = 'https://rawgit.com/kpion/yalog/master/src/plugins/page.js'></script>
+		-->
+		<script src = '../../yalog/src/yalog.js '></script>
+		<script src = '../../yalog/src//plugins/page.js'></script>
+	
 		<script src = '../assets/ace/ace.js'></script>
 		<style>
 			
@@ -24,6 +27,10 @@
 				margin: 0 auto;
 				max-width: 60em;
 				/*margin-bottom:150px;*/
+			}
+
+			.content #mainStuff button{
+				width: 25%;
 			}
 			
 			/* ace edit element */
@@ -51,38 +58,49 @@
 			<h2>In progress...</h2>
 			<p>See developer tools -> console</p>
 			<p>Github src: <a href = 'https://github.com/kpion/yalog'>https://github.com/kpion/yalog</a><p>
+			<div id = 'mainStuff'>
 
-			<!-- editable js code -->
+				<!-- editable js code -->
+				<div class = 'action'>
+					<h2>Code:</h2>
+					<div id = 'demoScriptEdit'></div>
+					<br>
+					<button id = 'runDemoScript'>Run it again</button>
+					<span class = 'info hidden'>Be sure to open dev tools -> console</span>
+				</div>
+				
+				
+				<!-- page plugin button-->
+				<div class = 'action'>
+					<button id = 'enablePagePlugin' >Enable "page" (DOM) plugin</button> 
+					<span class = 'info hidden'><code>yalog.addPlugin(yalogPage);</code>Don't forget to "Run it again"</span>
+				
+					<!-- just testing -->
+					<div class = 'hidden' id = 'pagePluginCodeWrapper'>
+						<textarea class = 'readonlyCode' data-ace-config = '{"mode":"ace/mode/html"}'>
+							<!--adding this -->
+							<script src = 'yalog/plugins/page.js'></script>
+							<script>
+								yalog.addPlugin(yalogPage);//optional logging on website	
+							</script>
+						</textarea>
+					</div>
+				</div>
 
-			<h2>Code:</h2>
-			<div id = 'demoScriptEdit'></div>
-			<br>
-			<button id = 'runDemoScript'>Run it again</button>
-			<br>
-			
-			<!-- page plugin -->
+				<!-- log history -->
+				<div class = 'action'>
+					<button id = 'showStory' title = 'Which can be later sent... somewhere' >Show logged logs</button>
+					<span class = 'info hidden'>Full log</span>
 
-			<button id = 'enablePagePlugin' >Enable "page" (DOM) plugin</button>
-			<div class = 'hidden' id = 'pagePluginCodeWrapper'>
-				<textarea class = 'readonlyCode' data-ace-config = '{"mode":"ace/mode/html"}'>
-					<!--adding this -->
-					<script src = 'yalog/plugins/page.js'></script>
-					<script>
-						yalog.addPlugin(yalogPage);//optional logging on website	
-					</script>
-				</textarea>
-			</div>
-			<br>
+					<textarea id = 'story' class = 'hidden'></textarea>
+				</div>
 
-			<!-- log history -->
-
-			<button id = 'showStory' title = 'Which can be later sent... somewhere' >Show logged logs</button>
-			<textarea id = 'story' class = 'hidden'></textarea>
-			<br>
-
-			<!-- husky! -->
-			<button id = 'showRandomHusky'>Random husky!</button>
-			<br>
+				<!-- husky! -->
+				<div class = 'action'>
+					<button id = 'showRandomHusky'>Random husky!</button>
+					<span class = 'info hidden'>Be sure to open dev tools -> console</span>
+				</div>
+			</div>	
 		</div>
 		
 		<footer></footer>
@@ -177,9 +195,10 @@
 			//not really related to the yalog itself. Just this site's stuff.
 			(function(){
 
-				let sel = (s) => document.querySelector(s);
-				let selAll = (s) => document.querySelectorAll(s);
-
+				//let sel = (s) => document.querySelector(s);
+				//let selAll = (s) => document.querySelectorAll(s);
+				let sel = (s,context) => {return context?context.querySelector(s):document.querySelector(s)};
+				let selAll = (s,context) => {return context?context.querySelectorAll(s):document.querySelectorAll(s)};
 				
 				//ace editor for all .readonlyCode elements
 				selAll('.readonlyCode').forEach(el => {
@@ -208,9 +227,28 @@
 				
 				//editor.setTheme("ace/theme/twilight");
 				editor.session.setMode("ace/mode/javascript");				
-				
-				//editor and "run again":
 
+				//the 'info' element next to each action btn
+				function showInfo(actionEl){
+					let infoEl = sel('.info',actionEl);
+					if(infoEl){
+						infoEl.classList.remove('hidden');
+					}
+				}
+
+				//the 'info' element next to each action btn
+				function setInfo(actionEl,html){
+					let infoEl = sel('.info',actionEl);
+					if(infoEl){
+						infoEl.innerHTML = html;
+					}
+					showInfo(actionEl);
+				}
+				/////////////////////////////////////////////////////
+				//actions.
+
+				//editor and "run again":
+				
 				//getting our real <script>...<script> code:
 				let script = sel('#demoScript').textContent.trim();
 				script = script.replace(/\t\t\t/g,'');
@@ -218,20 +256,24 @@
 				editor.clearSelection();//otherwise it selects all o.O 
 				
 				//run it again:
-				sel('#runDemoScript').addEventListener('click',()=>{
+				sel('#runDemoScript').addEventListener('click',(event)=>{
 					let displayScript = editor.getValue();
 					eval(displayScript);
+					showInfo(event.target.parentNode);
 				});			   
 				
 				//add 'page' plugin button
-				sel('#enablePagePlugin').addEventListener('click',()=>{
-					sel('#pagePluginCodeWrapper').classList.remove('hidden');
-					setTimeout(()=>{yalog.addPlugin(yalogPage);},100);
+				sel('#enablePagePlugin').addEventListener('click',(event)=>{
+					//sel('#pagePluginCodeWrapper').classList.remove('hidden');
+					//setTimeout(()=>{yalog.addPlugin(yalogPage);},100);
+					yalog.addPlugin(yalogPage);
+					yalog.log('This goes to both standard console and the just opened page console.')
+					showInfo(event.target.parentNode);
 				})
 				
 				 
 				//show all the output as jsoned array.
-				sel('#showStory').addEventListener('click',() => {
+				sel('#showStory').addEventListener('click',(event) => {
 					let storyEl = sel ('#story');
 					storyEl.classList.toggle('hidden');
 					
@@ -239,9 +281,10 @@
 						let story = yalog.JSONStringify(yalog.story(), null, '  ');
 						storyEl.textContent = story;
 					}
+					showInfo(event.target.parentNode);
 				});					
 				
-				sel('#showRandomHusky').addEventListener('click',() => {
+				sel('#showRandomHusky').addEventListener('click',(event) => {
 					yalog.css('h2').log('Here you go, a random husky!');
 					let rand = Math.round(Math.random() * 10);//only 10 huskies there.
 					yalog.style(`
@@ -249,7 +292,7 @@
 						padding: 140px 180px;
 			
 					`).log('');
-			
+					showInfo(event.target.parentNode);
 				});
 			})();
 			
