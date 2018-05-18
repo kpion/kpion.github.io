@@ -8,13 +8,16 @@
 		<link rel = "stylesheet" href = "../assets/milligram/milligram.min.css">
 		
 		<!-- DON'T use these links, download the file instead --> 
-		<!--
-			<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
-			<script src = 'https://rawgit.com/kpion/yalog/master/src/plugins/page.js'></script>
-		-->
-		<script src = '../../yalog/src/yalog.js '></script>
-		<script src = '../../yalog/src//plugins/page.js'></script>
+		
+		<script src = 'https://rawgit.com/kpion/yalog/master/src/yalog.js'></script>
+		<script src = 'https://rawgit.com/kpion/yalog/master/src/plugins/page.js'></script>
 	
+
+		<!--
+			<script src = '../../yalog/src/yalog.js '></script>
+			<script src = '../../yalog/src//plugins/page.js'></script>
+		-->
+
 		<script src = '../assets/ace/ace.js'></script>
 		<style>
 			
@@ -100,6 +103,13 @@
 					<button id = 'showRandomHusky'>Random husky!</button>
 					<span class = 'info hidden'>Be sure to open dev tools -> console</span>
 				</div>
+
+				<!-- clearing all -->
+				<div class = 'action'>
+						<button id = 'clearAll'>Clear all</button>
+						<span class = 'info hidden'>Cleared all</span>
+					</div>
+					
 			</div>	
 		</div>
 		
@@ -244,6 +254,13 @@
 					}
 					showInfo(actionEl);
 				}
+
+				//updates the 'story' display
+				function updateStory(){
+					let story = yalog.JSONStringify(yalog.story(), null, '  ');
+					sel ('#story').textContent = story;
+				}
+
 				/////////////////////////////////////////////////////
 				//actions.
 
@@ -260,6 +277,7 @@
 					let displayScript = editor.getValue();
 					eval(displayScript);
 					showInfo(event.target.parentNode);
+					updateStory();
 				});			   
 				
 				//add 'page' plugin button
@@ -269,6 +287,7 @@
 					yalog.addPlugin(yalogPage);
 					yalog.log('This goes to both standard console and the just opened page console.')
 					showInfo(event.target.parentNode);
+					updateStory();
 				})
 				
 				 
@@ -278,8 +297,7 @@
 					storyEl.classList.toggle('hidden');
 					
 					if(!storyEl.classList.contains('hidden')){
-						let story = yalog.JSONStringify(yalog.story(), null, '  ');
-						storyEl.textContent = story;
+						updateStory();
 					}
 					showInfo(event.target.parentNode);
 				});					
@@ -294,6 +312,14 @@
 					`).log('');
 					showInfo(event.target.parentNode);
 				});
+
+				sel('#clearAll').addEventListener('click',(event) => {
+					yalog.clear(true);
+					//refreshing story textarea above
+					updateStory();
+					showInfo(event.target.parentNode);
+				});
+				
 			})();
 			
 		</script>
