@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+	<title>Fonts tests</title>
+	
+	<style>
+            @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+
+            body {
+                
+            }	
+            
+            .custom1{
+                font-family: "Roboto", "Helvetica", "Arial", sans-serif;            
+            }
+        </style>
+        
+  </head>
+
+  <body>
+	
+	<p>Open devtools -> network and...</p>
+	<div id = 'testContent'>
+            press a button
+	</div>
+	
+	<br>
+	<button id = 'b1'>Add latin only characters</button>
+	<br><br>
+	<button id = 'b2'>Add latin+accented characters</button>
+	
+	<script>
+            document.querySelector('#b1').addEventListener('click',()=> {
+                document.querySelector('#testContent').innerHTML = (`
+                <p class = 'custom1'>And here goes the 'roboto' from google</p>
+            `);
+        }); 
+              
+            document.querySelector('#b2').addEventListener('click',()=> {
+                document.querySelector('#testContent').innerHTML = (`
+                <p class = 'custom1'>And here goes the 'roboto' from google, and some accented chars: zażółć gęślą jaźń</p>
+            `);
+        });      
+	</script>
+  </body>
+
+</html> 
+
