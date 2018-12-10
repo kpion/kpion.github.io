@@ -2,6 +2,12 @@
 
 blah V2
 
+![alt text](https://placekitten.com/600/300)
+
+![](https://placekitten.com/600/300)
+
+<img src = 'https://placekitten.com/600/300'>
+
 <video src = 'res/some-video.webm' controls></video>
 
 <video controls>
