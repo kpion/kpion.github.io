@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'>
+        <title>ffmpeg tests</title>
+        <style>
+            body {
+                margin: 0 auto;
+                width:900px;
+                font-family: sans-serif;
+                color:#333;
+           }            
+            img{
+                /* width:880px; */
+                opacity:1;
+                transition: opacity 0.5s ease 0s;
+            }
+            img.hourglass{
+                 opacity:0; 
+            }
+            img.hourglass-off{
+                opacity:1;
+            }            
+            .reload {
+                cursor:pointer;
+                color:orange;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>FFMPEG tests</h1>
+        <h2>Working fine</h2>
+
+        <h3>mp4 Source (30 fps)</h3>
+        <video src = 'res/movie.mp4' controls></video>
+
+        <h3>converted to apng</h3>
+        <div class = 'media-container'>
+            <img src = 'res/movie.apng' id = 'movie-apng'>
+            <p class = 'reload' data-id = 'movie-apng' >Reload</p>
+        </div>
+
+        <h2>problematic</h2>
+
+        <h3>mp4 Source (30 fps), this one is OK</h3>
+        <video src = 'res/lorem.mp4' controls></video>
+
+        <h3>converted to gif, this one is ok</h3>
+        <div class = 'media-container'>
+            <img src = 'res/lorem.gif' id = 'lorem-gif'>
+            <p class = 'reload' data-id = 'lorem-gif' >Reload</p>
+        </div>
+
+        <h3>and the issue - mp4 converted to apng</h3>
+        <p>looks like only a few frames are actually used, one of them appears after a few seconds.</p>
+        <div class = 'media-container'>
+            <img src = 'res/lorem.apng' id = 'lorem-apng'>
+            <p class = 'reload' data-id = 'lorem-apng' >Reload</p>
+        </div>
+        <script>
+            document.querySelectorAll('.reload').forEach(el => {
+                el.addEventListener('click',linkEl => {
+                    const targetId = linkEl.target.getAttribute('data-id');
+                    console.log(targetId);
+                    const targetEl = document.querySelector('#' + targetId);
+                    const prevSrc = targetEl.src;
+                    targetEl.classList.add('hourglass')
+                    setTimeout(()=>{
+                        targetEl.src = '';
+                        targetEl.src = prevSrc;
+                        targetEl.classList.remove('hourglass');
+                        targetEl.classList.add('hourglass-off');
+                        setTimeout(()=>{
+                            targetEl.classList.remove('hourglass-off')
+                        },500);                        
+                    },500);
+                    
+                    
+                })
+            })
+        </script>
+    </body>
+    
+</html>
