@@ -1,0 +1,11 @@
+body {
+    margin: 0 auto;
+    max-width: 50em;
+    background-color:#222;
+    color:#eee;
+ }
+
+ a,a:visited{
+    text-decoration: none;
+    color:#2FACFF; 
+}  
