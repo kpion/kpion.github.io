@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>font awesome svg sprites test</title>
+    </head>
+    <style>
+        body{
+            font-family: 'sans serif';
+            font-size:90%;
+            color:#555;
+            margin: 0 auto;
+            max-width: 60em;            
+        }
+        .fa-svg-icon{
+            width: 5em;
+            height: 5em;;
+            /* vertical-align: top; */
+        }      
+        #textarea{
+            width: 95%;
+            height: 25vh;
+        }
+        .why{
+            width:50px;height:50px;
+            top:20px;
+            transform:rotate(30deg);
+            fill:#c33; 
+            filter: drop-shadow( 2px 2px 1px rgba(0, 0, 0, .3));
+            position:relative;
+        }
+    </style>
+    <body>
+        <h1>Testing font awesome icons as svg sprites</h1>
+        <p>Implemented in accordance to<br>
+            https://fontawesome.com/how-to-use/on-the-web/advanced/svg-sprites (or maybe not? What I'm missing?
+        </p>
+        <p>Hover the black area and you should see a title, which I did not add</p>
+        <section id = 'code'>
+            <svg class = 'fa-svg-icon'>
+                <use xlink:href="icons/font-awesome/sprites/solid.svg#user"></use>
+            </svg>
+            
+            <!-- here is my attempt to bring my own title -->
+            
+            <svg class = 'fa-svg-icon' title = 'test'>
+                <use xlink:href="icons/font-awesome/sprites/regular.svg#futbol"></use>
+            </svg>
+        </section>    
+        <h2>The code is pretty simple:</h2>
+        <textarea id = 'textarea' disabled>
+        </textarea>
+        <p>And the question is...</p>
+        <h2>
+            <svg class = 'fa-svg-icon why' >
+                <use xlink:href="icons/font-awesome/sprites/solid.svg#user-injured"></use>
+            </svg>        
+            WHYYYYYYYYYYYYYYYYYYYYYYY????
+        </h2>
+
+        <script>
+            document.querySelector('#textarea').innerHTML = document.querySelector('#code').innerHTML;
+        </script>
+    </body>
+
+</html> 
