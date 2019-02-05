@@ -21,14 +21,9 @@
 		</script>
 		
 		<link rel="stylesheet" type="text/css" href="assets/bulma/bulma.css">
-		<style>
-			.github-corner:hover .octo-arm{
-				animation:octocat-wave 560ms ease-in-out}@keyframes 
-			octocat-wave
-			{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}
-			@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="assets/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
 	</head>
 	<body>
 		<!-- github corner ( http://tholman.com/github-corners/ ) -->
@@ -42,10 +37,11 @@
 			<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
 			</svg>
 		</a>
+		
 		<section class="hero is-info">
 			<div class="hero-body">
 				<div class="container">				
-					<h1 class = 'title is-1'>Just things, by <span title = 'i.e. Konrad Papała'>me</span>.</h1>
+					<h1 class = 'title is-1'>Konrad Papała. <span class = 'second'>Stuff</span>.</h1>
 					<p class="subtitle">
 						Playing with github pages, css frameworks (bulma, milligram), and js (es6). <br>
 						konradpapala@gmail.com
@@ -55,89 +51,82 @@
 			<div id = 'hide-me' class = 'notification is-danger'>Might not work with Javascript disabled</div>
 		</section>
 
+		<main>
+			<section class="section">
+				<h2 class = 'title is-2'>Projects, tests, playgrounds.</h2>
+				<div id="projects">
 
-		<section class="section">
-			<h2 class = 'title is-2'>Projects, tests, playgrounds.</h2>
-			<div id="projects">
 
+					<div class="box">
+						<h3 class="title is-4"><a href="https://github.com/kpion/lightdom/">Lightdom</a></h3>
+						<p>A very small DOM selector, using native JS (ES6), and only single file</p>
+						<p><a href="https://github.com/kpion/lightdom/">Enter</a></p>
+					</div>
 
-				<div class="box">
-					<h3 class="title is-4"><a href="https://github.com/kpion/lightdom/">Lightdom</a></h3>
-					<p>A very small DOM selector, using native JS (ES6), and only single file</p>
-					<p><a href="https://github.com/kpion/lightdom/">Enter</a></p>
+					<div class="box">
+						<h3 class="title is-4"><a href="tweaky/">Tweaky</a></h3>
+						<p>Browser based code editor - for quick experiments with PHP, HTML, JS stack.</p>
+						<p><a href="tweaky/">Enter</a></p>
+					</div>
+
+					<!-- <div class="box">
+						<h3 class="title is-4"><a href="yalog/">Yalog, extended console.log. With styling, grouping, plugins</a></h3>
+						<p>yalog.style('color:green').log('Yeah, this is green').css('h1').log('And this a header:)');  </p>
+						<p><a href="yalog/">Enter</a></p>
+					</div> -->
+
+					<!-- <div class="box">
+						<h3 class="title is-4"><a href="yes/">Yes, experimental javascript DOM manipulation, using native DOM API</a></h3>
+						<p>y('.some-class').classList.add('shock');//because we already have it natively</p>
+						<p><a href="yes/">Enter</a></p>
+					</div> -->
+					
+					<div class="box">
+						<h3 class="title is-4"><a href="calculator/">Calculator</a></h3>
+						<p>Realtime calculator :)</p>
+						<p><a href="calculator/">Enter</a></p>
+					</div>
+
+					<!-- <div class="box">
+						<h3 class="title is-4"><a href="buzzword-generator">Buzzword generator</a></h3>
+						<p>Javascript buzzword generator (actually just playing with bulma css)</p>
+						<p><a href="buzzword-generator">Enter</a></p>
+					</div>
+					-->
+					
+					<div class="box">
+						<h3 class="title is-4"><a href="https://github.com/kpion/things/">Things</a></h3>
+						<p>Hints, code snippets</p>
+						<p><a href="https://github.com/kpion/things/">Enter</a></p>
+					</div>
+
+					<div class="box">
+						<h3 class="title is-4"><a href="stuff/installing-php">PHP installation command helper</a></h3>
+						<p>How to: Install newest (or any) PHP on Ubuntu, also testing milligram css template</p>
+						<p><a href="other/installing-php">Enter</a></p>
+					</div>
+
+					<!-- 
+					<div class="box"  id = 'name-me'>
+						<h3 class="title is-4"><a href="other/name-me/name-me.html">Name me. Just a trick to bring named "categories" to the Tree Style Tab Firefox add-on</a></h3>
+						<p>If you use FX or Opera "Tree tabs" - like plugins, this single page can be used as a "category" tab, where you can set its title, to e.g. [later] or [project foo].</p>
+						<p><a href="other/name-me/name-me.html">Enter</a></p>
+					</div> -->
+
+					<div class="box">
+						<h3 class="title is-4"><a href="https://github.com/kpion/kpion.github.io">This site</a></h3>
+						<p>This site, including some of the above projects, on github.com</p>
+						<p><a href="https://github.com/kpion/kpion.github.io">Enter</a></p>
+					</div>
 				</div>
-
-				<div class="box">
-					<h3 class="title is-4"><a href="tweaky/">Tweaky</a></h3>
-					<p>Browser based code editor - for quick experiments with PHP, HTML, JS stack.</p>
-					<p><a href="tweaky/">Enter</a></p>
-				</div>
-
-				<!-- <div class="box">
-					<h3 class="title is-4"><a href="yalog/">Yalog, extended console.log. With styling, grouping, plugins</a></h3>
-					<p>yalog.style('color:green').log('Yeah, this is green').css('h1').log('And this a header:)');  </p>
-					<p><a href="yalog/">Enter</a></p>
-				</div> -->
-
-				<!-- <div class="box">
-					<h3 class="title is-4"><a href="yes/">Yes, experimental javascript DOM manipulation, using native DOM API</a></h3>
-					<p>y('.some-class').classList.add('shock');//because we already have it natively</p>
-					<p><a href="yes/">Enter</a></p>
-				</div> -->
-				
-				<div class="box">
-					<h3 class="title is-4"><a href="calculator/">Calculator</a></h3>
-					<p>Realtime calculator :)</p>
-					<p><a href="calculator/">Enter</a></p>
-				</div>
-
-				<!-- <div class="box">
-					<h3 class="title is-4"><a href="buzzword-generator">Buzzword generator</a></h3>
-					<p>Javascript buzzword generator (actually just playing with bulma css)</p>
-					<p><a href="buzzword-generator">Enter</a></p>
-				</div>
-				 -->
-				 
-				<div class="box">
-					<h3 class="title is-4"><a href="https://github.com/kpion/things/">Things</a></h3>
-					<p>Hints, code snippets</p>
-					<p><a href="https://github.com/kpion/things/">Enter</a></p>
-				</div>
-
-				<div class="box">
-					<h3 class="title is-4"><a href="stuff/installing-php">PHP installation command helper</a></h3>
-					<p>How to: Install newest (or any) PHP on Ubuntu, also testing milligram css template</p>
-					<p><a href="other/installing-php">Enter</a></p>
-				</div>
-
-				<!-- 
-				<div class="box"  id = 'name-me'>
-					<h3 class="title is-4"><a href="other/name-me/name-me.html">Name me. Just a trick to bring named "categories" to the Tree Style Tab Firefox add-on</a></h3>
-					<p>If you use FX or Opera "Tree tabs" - like plugins, this single page can be used as a "category" tab, where you can set its title, to e.g. [later] or [project foo].</p>
-					<p><a href="other/name-me/name-me.html">Enter</a></p>
-				</div> -->
-
-				<div class="box">
-					<h3 class="title is-4"><a href="https://github.com/kpion/kpion.github.io">This site</a></h3>
-					<p>This site, including some of the above projects, on github.com</p>
-					<p><a href="https://github.com/kpion/kpion.github.io">Enter</a></p>
-				</div>
-			</div>
-		</section>	
-
+			</section>	
+		</main>
         <script>
 			(function () {
 				//just a shortcut:
 				let sel = (q) => document.querySelector(q);
 				//the 'please, enable js' message box  
 				sel('#hide-me').style.display = 'none';
-				//#project-name or maybe other things
-				var url = new URL(window.location.href);
-				//var paramTitle = url.searchParams.get("title");	
-				let hash = url.hash;
-				if(hash){//e.g. #project-name
-					sel(hash).style.border = '1px solid #009';
-				}
 			})();
 
 		</script>
