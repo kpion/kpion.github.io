@@ -1,155 +1,93 @@
-<!DOCTYPE html>
-<html>
-    <head>
-			<title>Konrad Papala on github.io</title>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+---
+layout: default
+title: Konrad Papala on github.io
+description: Konrad Papała playground pages
+keywords: Konrad Papała, Bydgoszcz, developer, php, javascript
+---
+<section class="section">
+	<h1 class = 'title is-2'>Projects, tests, playgrounds.</h1>
+	<div id="projects">
 
-			<meta name="description" content="Konrad Papała playground pages">
-			<meta name="keywords" content="Konrad Papała, Bydgoszcz, developer, php, javascript">
-			<meta name="author" content="Konrad Papała">
+		<div class="box">
+			<h2><a href="https://github.com/kpion/netmon/">Netmon</a></h2>
+			<p><b>Firefox / Chrome extension</b></p><br>
+			<p>View the HTTP headers of the current page, or globally, from all tabs. 
+				You can use it at any time, also *after* the page has loaded.</p>
 
-			<!-- Global site tag (gtag.js) - Google Analytics -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118330995-1"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-
-				gtag('config', 'UA-118330995-1');
-
-			</script>
+			<p>This is useful when there are random errors in some cases and you just want to see what happened, list the past requests.</p>
 			
-			<link rel="stylesheet" type="text/css" href="assets/bulma/bulma.css">
-			<link rel="stylesheet" type="text/css" href="assets/style.css">
-			<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-			<link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
-		</head>
-	<body>
-		<!-- github corner ( http://tholman.com/github-corners/ ) -->
-		<a href="https://github.com/kpion/kpion.github.io" class="github-corner" aria-label="View source on Github">
+			<p>It also constantly displays current count of requests in any given tab.	</p>
 
-			<svg width="80" height="80" viewBox="0 0 250 250" 
-				 style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" 
-				 aria-hidden="true">
-			<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-			<path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-			<path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
-			</svg>
-		</a>
+			<p><a href="https://github.com/kpion/netmon/">Enter</a></p>
+		</div>
+
+		<div class="box">
+			<h2><a href="inzoom">In zoom</a></h2>
+			<p><b>Firefox / Chrome extension</b></p><br>
+			<p>Zoom in and out on images and videos using shift + mouse wheel</p>
+			<p>This extension works "inline", i.e. images are not displayed in a popup - 
+				instead they are enlarged exactly where they are. 
+			</p>	
+
+			<p><a href="inzoom">Enter</a></p>
+		</div>
+
+		<div class="box">
+			<h2><a href="https://github.com/kpion/lightdom/">Lightdom</a></h2>
+			<p>A very small DOM selector, using native JS (ES6), and only single file</p>
+			<p><a href="https://github.com/kpion/lightdom/">Enter</a></p>
+		</div>
+
+		<div class="box">
+			<h2><a href="tweaky/">Tweaky</a></h2>
+			<p>Browser based code editor - for quick experiments with PHP, HTML, JS stack.</p>
+			<p><a href="tweaky/">Enter</a></p>
+		</div>
+
+		<!-- <div class="box">
+			<h2><a href="yalog/">Yalog, extended console.log. With styling, grouping, plugins</a></h2>
+			<p>yalog.style('color:green').log('Yeah, this is green').css('h1').log('And this a header:)');  </p>
+			<p><a href="yalog/">Enter</a></p>
+		</div> -->
+
+		<!-- <div class="box">
+			<h2><a href="yes/">Yes, experimental javascript DOM manipulation, using native DOM API</a></h2>
+			<p>y('.some-class').classList.add('shock');//because we already have it natively</p>
+			<p><a href="yes/">Enter</a></p>
+		</div> -->
 		
-		<section class="hero is-info">
-			<div class="hero-body">
-				<div class="container">				
-					<h1 class = 'title is-1'>Konrad Papala. <span class = 'second'>Stuff</span>.</h1>
-					<p class="subtitle">
-						Playing with github pages, css frameworks (bulma, milligram), and js (es6). <br>
-						konrad.papala@gmail.com
-					</p>
-				</div>
-			</div>		
-			<div id = 'hide-me' class = 'notification is-danger'>Might not work with Javascript disabled</div>
-		</section>
+		<div class="box">
+			<h2><a href="calculator/">Calculator</a></h2>
+			<p>Realtime calculator :)</p>
+			<p><a href="calculator/">Enter</a></p>
+		</div>
 
-		<main>
-			<section class="section">
-				<h2 class = 'title is-2'>Projects, tests, playgrounds.</h2>
-				<div id="projects">
-
-					<div class="box">
-						<h3 class="title is-4"><a href="https://github.com/kpion/netmon/">Netmon</a></h3>
-						<p><b>Firefox / Chrome extension</b></p><br>
-						<p>View the HTTP headers of the current page, or globally, from all tabs. 
-							You can use it at any time, also *after* the page has loaded.</p>
-
-						<p>This is useful when there are random errors in some cases and you just want to see what happened, list the past requests.</p>
-						
-						<p>It also constantly displays current count of requests in any given tab.	</p>
-
-						<p><a href="https://github.com/kpion/netmon/">Enter</a></p>
-					</div>
-
-					<div class="box">
-						<h3 class="title is-4"><a href="https://github.com/kpion/inzoom/">In zoom</a></h3>
-						<p><b>Firefox / Chrome extension</b></p><br>
-						<p>Zoom in and out on images and videos using shift + mouse wheel</p>
-						<p>This extension works "inline", i.e. images are not displayed in a popup - 
-							instead they are enlarged exactly where they are. 
-						</p>	
-
-						<p><a href="https://github.com/kpion/inzoom/">Enter</a></p>
-					</div>
-
-					<div class="box">
-						<h3 class="title is-4"><a href="https://github.com/kpion/lightdom/">Lightdom</a></h3>
-						<p>A very small DOM selector, using native JS (ES6), and only single file</p>
-						<p><a href="https://github.com/kpion/lightdom/">Enter</a></p>
-					</div>
-
-					<div class="box">
-						<h3 class="title is-4"><a href="tweaky/">Tweaky</a></h3>
-						<p>Browser based code editor - for quick experiments with PHP, HTML, JS stack.</p>
-						<p><a href="tweaky/">Enter</a></p>
-					</div>
-
-					<!-- <div class="box">
-						<h3 class="title is-4"><a href="yalog/">Yalog, extended console.log. With styling, grouping, plugins</a></h3>
-						<p>yalog.style('color:green').log('Yeah, this is green').css('h1').log('And this a header:)');  </p>
-						<p><a href="yalog/">Enter</a></p>
-					</div> -->
-
-					<!-- <div class="box">
-						<h3 class="title is-4"><a href="yes/">Yes, experimental javascript DOM manipulation, using native DOM API</a></h3>
-						<p>y('.some-class').classList.add('shock');//because we already have it natively</p>
-						<p><a href="yes/">Enter</a></p>
-					</div> -->
-					
-					<div class="box">
-						<h3 class="title is-4"><a href="calculator/">Calculator</a></h3>
-						<p>Realtime calculator :)</p>
-						<p><a href="calculator/">Enter</a></p>
-					</div>
-
-					<!-- <div class="box">
-						<h3 class="title is-4"><a href="buzzword-generator">Buzzword generator</a></h3>
-						<p>Javascript buzzword generator (actually just playing with bulma css)</p>
-						<p><a href="buzzword-generator">Enter</a></p>
-					</div>
-					-->
-					
-					<div class="box">
-						<h3 class="title is-4"><a href="https://github.com/kpion/things/">Things</a></h3>
-						<p>Hints, code snippets</p>
-						<p><a href="https://github.com/kpion/things/">Enter</a></p>
-					</div>
-
-					<div class="box">
-						<h3 class="title is-4"><a href="stuff/installing-php">PHP installation command helper</a></h3>
-						<p>How to: Install newest (or any) PHP on Ubuntu, also testing milligram css template</p>
-						<p><a href="other/installing-php">Enter</a></p>
-					</div>
-
-					<!-- 
-					<div class="box"  id = 'name-me'>
-						<h3 class="title is-4"><a href="other/name-me/name-me.html">Name me. Just a trick to bring named "categories" to the Tree Style Tab Firefox add-on</a></h3>
-						<p>If you use FX or Opera "Tree tabs" - like plugins, this single page can be used as a "category" tab, where you can set its title, to e.g. [later] or [project foo].</p>
-						<p><a href="other/name-me/name-me.html">Enter</a></p>
-					</div> -->
-
-				</div>
-			</section>	
-		</main>
-        <script>
-			(function () {
-				//just a shortcut:
-				let sel = (q) => document.querySelector(q);
-				//the 'please, enable js' message box  
-				sel('#hide-me').style.display = 'none';
-			})();
-
-		</script>
+		<!-- <div class="box">
+			<h2><a href="buzzword-generator">Buzzword generator</a></h2>
+			<p>Javascript buzzword generator (actually just playing with bulma css)</p>
+			<p><a href="buzzword-generator">Enter</a></p>
+		</div>
+		-->
 		
+		<div class="box">
+			<h2><a href="https://github.com/kpion/things/">Things</a></h2>
+			<p>Hints, code snippets</p>
+			<p><a href="https://github.com/kpion/things/">Enter</a></p>
+		</div>
 
-		
-    </body>
-</html>
+		<div class="box">
+			<h2><a href="stuff/installing-php">PHP installation command helper</a></h2>
+			<p>How to: Install newest (or any) PHP on Ubuntu, also testing milligram css template</p>
+			<p><a href="other/installing-php">Enter</a></p>
+		</div>
+
+		<!-- 
+		<div class="box"  id = 'name-me'>
+			<h2><a href="other/name-me/name-me.html">Name me. Just a trick to bring named "categories" to the Tree Style Tab Firefox add-on</a></h2>
+			<p>If you use FX or Opera "Tree tabs" - like plugins, this single page can be used as a "category" tab, where you can set its title, to e.g. [later] or [project foo].</p>
+			<p><a href="other/name-me/name-me.html">Enter</a></p>
+		</div> -->
+
+	</div>
+</section>	
+
