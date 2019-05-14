@@ -1,4 +1,8 @@
-/* definicja */
+
+$base-color: #e37682;//rgba(252, 159, 175, 1)
+
+//when to assume it's a mobile device. Below this one:
+$mobile-trigger-width: 768px;
 
 :root {
     --hero-height: 256px;
@@ -33,6 +37,18 @@ p{
     margin-bottom:1em;
 }
 
+@media (max-width: $mobile-trigger-width)  {
+    h1{
+        font-size: 1.5em;
+    }
+    h2{
+        font-size: 1.3em;
+    }
+    h3{
+        font-size: 1.1em;
+    }
+
+ }
 ///////////////////////////////////////////////////////////////
 //structure
 
@@ -45,16 +61,19 @@ body {
     font-family: lato, 'sans serif';
     font-size:16px;
     font-weight:normal;//milligram makes it 300 O.o 
-    background-color: #e37682;//rgba(252, 159, 175, 1)
+    background-color: $base-color;
 
     // background-image: linear-gradient(0deg, #e37682 0%, #d36672 100%);
     //background: radial-gradient(#fc9faf, #e37682);
 }    
 
 #wrapper{
-    width: 75em;
+    //width: 85%;
+    //max-width: 75em;
+    width:70em;
     margin: 0 auto;
 }
+
 
 header{
     width:inherit;
@@ -62,7 +81,20 @@ header{
     background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
 }
 
-
+@media (max-width: $mobile-trigger-width)  {
+    /*
+    these changes cause some troubles, e.g. when the #nav becomes fixed its width is 
+    a bit broken. Because fixed apparently needs the wrapper's width to be absolute, not relative (%);
+    but except for that it looks fine on mobiles.
+    */
+    #wrapper {
+        width: 95%;
+    }
+    header {
+        width:100%;
+    }
+}
+ 
 
 .hero {
     // background-color: #209cee;
@@ -143,6 +175,19 @@ header{
     font-size:0.8em;
 }
 
+
+@media (max-width: $mobile-trigger-width)  {
+    #nav {
+        font-size:0.8em;
+        ul{
+            li{
+                a{
+                    padding: 0 0.1em;
+                }
+            }
+        }
+    }
+}
 
 main{
     padding:2em;
