@@ -44,7 +44,7 @@
             </a>    
     
             <section class="hero">
-                <div class="hero-body">
+                <div class="hero-body fade-in-opacity">
                     <span class = 'title'>Konrad Papała. <span class = 'second'>Stuff</span>.</span>
                     <p class="subtitle">
                       Playing with github pages, css frameworks, and js (es6). <br>
@@ -57,15 +57,15 @@
                     </ul>
                 </div>		
                 <div id = 'hide-me' class = 'notification is-danger'>Might not work with Javascript disabled</div>
-              </section>
-              <nav id = 'nav'>
-                  <ul>
-                    <li><a href = '/'>Home</a></li>
-                    <li><a href = '/inzoom'>In Zoom</a></li>
-                    <li><a href = '/netmon'>Netmon</a></li>
-                    <li><a href = '/contact'>Contact</a></li>
-                  </ul>
-                </nav>        
+            </section>
+            <nav id = 'nav'>
+                <ul>
+                  <li><a href = '/'>Home</a></li>
+                  <li><a href = '/inzoom'>In Zoom</a></li>
+                  <li><a href = '/netmon'>Netmon</a></li>
+                  <li><a href = '/contact'>Contact</a></li>
+                </ul>
+              </nav>        
                 
           </header>    
           <main>
@@ -91,7 +91,11 @@
                   lnav.removeClass('nav-fixed');
                 }
               }
-      
+
+              l(()=>{
+                l('.fade-in-opacity').addClass('fade-in-opacity-run');
+              }) 
+              
             })();
     
            

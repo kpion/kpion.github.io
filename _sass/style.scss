@@ -5,18 +5,6 @@
     --nav-height: 50px;
 }
 
-html{
-    width:100%;    
-}
-
-body {
-    margin: 0;
-    font-family: lato, 'sans serif';
-    font-size:16px;
-    // background-color: #935d8b;
-    background-image: linear-gradient(0deg, #e37682 0%, #d36672 100%);
-}    
-
 h1{
     font-weight: 100;
     font-size: 2em;
@@ -39,33 +27,25 @@ a{
     color:#d36672;
 }
 
-ul.icons {
-    cursor: default;
-    list-style: none;
-    padding-left: 0;
-    vertical-align: baseline;
-    li {
-        display: inline-block;
-        padding: 0 0.65em 0 0;
-        a {
-            
-            i{
-                padding:10px;
-                border-color: rgba(255, 255, 255, 0.5);
-                color: rgba(255, 255, 255, 0.8);//this one works for border o.O
-                display: inline-block;
-                border: solid 1px;
-                border-radius: 100%;
-                font-size:1.3em;
-                transition: background-color 0.5s;
-                &:hover{
-                    color: rgba(255, 255, 255, 1);//this one works for border o.O
-                    background-color: #e37682;
-                }
-            }
-        }
-    }    
-}       
+p{
+    margin-bottom:1em;
+}
+
+///////////////////////////////////////////////////////////////
+//structure
+
+html{
+    width:100%;    
+}
+
+body {
+    margin: 0;
+    font-family: lato, 'sans serif';
+    font-size:16px;
+    background-color: #e37682;//rgba(252, 159, 175, 1)
+    // background-image: linear-gradient(0deg, #e37682 0%, #d36672 100%);
+    //background: radial-gradient(#fc9faf, #e37682);
+}    
 
 #wrapper{
     width: 75em;
@@ -75,6 +55,7 @@ ul.icons {
 header{
     width:inherit;
     color:white;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
 }
 
 
@@ -172,14 +153,17 @@ main{
     }
 }
 
-p{
-    margin-bottom:1em;
-}
-/* Waving octocat  */
+
+///////////////////////////////////////////////////////////////////
+//specific stuff 
+
+//////
+//octocat waving
 
 .github-corner:hover .octo-arm{
     animation:octocat-wave 560ms ease-in-out
 }
+
 
 @keyframes octocat-wave
 {
@@ -189,3 +173,47 @@ p{
     .github-corner:hover .octo-arm{animation:none}
     .github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}
 }
+
+////////////////
+//other
+ul.icons {
+    cursor: default;
+    list-style: none;
+    padding-left: 0;
+    vertical-align: baseline;
+    li {
+        display: inline-block;
+        padding: 0 0.65em 0 0;
+        a {
+            
+            i{
+                padding:10px;
+                border-color: rgba(255, 255, 255, 0.5);
+                color: rgba(255, 255, 255, 0.8);//this one works for border o.O
+                display: inline-block;
+                border: solid 1px;
+                border-radius: 100%;
+                font-size:1.3em;
+                transition: background-color 0.5s;
+                &:hover{
+                    color: rgba(255, 255, 255, 1);//this one works for border o.O
+                    background-color: #e37682;
+                }
+            }
+        }
+    }    
+}       
+
+///////////////////////////
+//fading effect
+
+//initial values
+.fade-in-opacity{
+    opacity: 0;
+    transition: opacity 1.5s;
+}
+
+//added by js when dom ready
+.fade-in-opacity-run{
+    opacity: 1;
+};
