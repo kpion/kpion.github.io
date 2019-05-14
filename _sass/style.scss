@@ -194,6 +194,8 @@ ul.icons {
                 border: solid 1px;
                 border-radius: 100%;
                 font-size:1.3em;
+                width:2.0em;
+                height:2.0em;
                 transition: background-color 0.5s;
                 &:hover{
                     color: rgba(255, 255, 255, 1);//this one works for border o.O
