@@ -10,7 +10,12 @@ Just kidding there.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" type="text/css" href="../assets/css/bulma/bulma.css">
+		<script src = '../assets/js/lightdom.js'></script>
 		<style>
+			#formula::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  				color: #aaa;
+  				opacity: 1; /* Firefox */
+			}
 			.is-vertical-center {
 			  display: flex;
 			  align-items: center;
@@ -20,31 +25,49 @@ Just kidding there.
 				margin-left:10px;
 			}
 			
+			.warning{
+				width:60%;
+				font-size: 0.8em;
+				padding-top:6px;
+			}
+
+			.warning.warning-off{
+				color:#ddd;
+				transition: 2s ease-out;
+			}
+			.warning.warning-on{
+				color:brown;
+			}
 		</style>
     </head>
     <body>
-		<section class="hero is-info">
+
+		<section class="hero is-info full-mode-only">
 			<div class="hero-body">
 				<div class="container">				
 					<h1 class = 'title is-1'>Realtime calculator.</h1>
-					<h2 class="subtitle is-6 is-pulled-right">
+					<h2 class = "subtitle is-6 is-pulled-right">
 						Just playing with jekyll, and learning new things in newest JS implementations.
 					</h2>
 				</div>
 			</div>		
 		</section>
         
-		 <section class = 'section'>
+		 <section class = 'section' id = 'main-section'>
 			 
 			<form id = 'form-calc'>
 				
 				<div class="field">
 					<label class="label">Expression:</label>
 					<div class="control">				
-						<textarea class="textarea" id = 'formula' placeholder = '2 + \n(4 * 10)' ></textarea>
+						<textarea class="textarea" id = 'formula' placeholder = '2 + \n(4 * 10)' rows = '2'></textarea>
 					</div>
+					
 				</div>
-				
+
+				<!-- for example, that a comma was removed (we use a dot here in expressions -->
+
+				<div id = 'warning' class = 'warning warning-off is-pulled-left '></div>
 				<!-- tools -->
 				<div id = 'tools' class = 'is-pulled-right columns'>
 					
@@ -64,7 +87,6 @@ Just kidding there.
 				</div>
 				
 				<div class = 'is-clearfix'></div>
-				
 				
 				<div class="field" id = 'eval-field'>
 					<div class="control is-vertical-center">	
@@ -93,7 +115,16 @@ Just kidding there.
 		</section>
 		<script>
 			(function(){
-
+				var url = new URL(window.location.href);
+				var mode = url.searchParams.get("mode")?url.searchParams.get("mode"):'full';
+				if(mode !== 'full'){
+					l('.full-mode-only').css({'display':'none'});
+					l('#main-section').css({'padding':'0.5rem'});
+				}
+				
+				
+				//first let's hide some elements, if mode == light (param in url)
+				
 				//utils
 				
 				//insert given text into given element, at cursor position
@@ -129,6 +160,7 @@ Just kidding there.
 				let elEvalAuto = document.querySelector('#form-calc #eval-auto');
 				let elResultFormat  = document.querySelector('#form-calc #result-format');
 				let elExpressionHelper = document.querySelector('#form-calc #expression-helper');
+				let warningIsShown = false;
 
 				function calculate(onlyIfEvalAutoEnabled = false) {
 					if(onlyIfEvalAutoEnabled && !elEvalAuto.checked){
@@ -136,6 +168,18 @@ Just kidding there.
 					}
 					let result = '';
 					let isOK = true;
+					let warning = '';
+					if(elFormula.value.indexOf(',') != -1){
+						warning = 'Remember: use a dot to separate decimal parts. Comma can be used to separate various function parameters only.';
+						if(!warningIsShown){
+							l('#warning').addClass('warning-on');
+						}
+						warningIsShown = true;
+					}else{
+						l('#warning').removeClass('warning-on');
+						warningIsShown = false;
+					}
+					l('#warning').text(warning);
 					try {
 						if(elFormula.value === ''){
 							result = '';
