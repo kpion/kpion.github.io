@@ -1,5 +1,7 @@
 /.vscode
+/.history
 /project.code-workspace
 /.favorites.json
 /_site
 /.sass-cache
+/.local
