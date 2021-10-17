@@ -1,0 +1,402 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Konrad Papała - resume</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Konrad Papała - resume">
+    <meta name="keywords" content="Konrad Papała - resume">
+    <meta name="author" content="Konrad Papała">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118330995-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-118330995-1');
+    </script>
+
+    <link href="./assets/css/fontawesome-all.css" rel="stylesheet">
+    <!--font awesome-->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
+    <script src='assets/js/lightdom.js'></script>
+</head>
+
+<body>
+    <style>
+        :root {
+            /* Kolor menu, kresek w main, czcionki w main */
+            /* --key-color: #0bb5e4; */
+            --key-color: #772323;
+
+            /* Kolor fontu w menu */
+            /* --menu-font-color:#b1eaff; */
+            --menu-font-color: #d7a3a3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        a {
+            text-decoration: none;
+            /* color: #ccc; */
+            color:inherit;
+        }
+
+
+        body {
+            /* background: #000; */
+            font-size: 13px;
+            line-height: 20px;
+            font-family: "Arial", "sans-serif";
+
+            color: #444;
+            background-image: linear-gradient(135deg, #777, #FFF);
+        }
+
+        @media print {
+            body {
+                background: none
+            }
+        }
+
+
+        h2 {
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        ul.list {
+            list-style: square;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        ul.list li {
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+
+        .resume .section {
+            padding: 25px 0;
+            border-bottom: 2px solid var(--menu-font-color)
+        }
+
+        .resume .section:last-child,
+        .resume .section:last-child {
+            border-bottom: 0px;
+        }
+
+
+        .resume {
+            width: 800px;
+            /* height: auto; */
+            display: flex;
+            margin: 50px auto;
+        }
+
+        .resume .menu {
+            background-color: var(--key-color);
+            color: var(--menu-font-color);
+            font-size: 115%;
+            min-width: 260px;
+        }
+
+        .resume .menu a,
+        .resume .menu a:visited {
+            color: var(--menu-font-color);
+        }
+
+        .resume .main {
+            /* width:500px; */
+            background-color: #fff;
+            /* padding: 25px; */
+            padding: 0px 25px;
+        }
+
+        .resume .menu h2 {
+            color: white;
+        }
+
+        .resume .menu .pic img {
+            width: 100%;
+        }
+
+        .resume .contact .icon {
+            margin-right: 5px;
+        }
+
+        .resume .contact>ul>li{
+            margin-bottom:5px;
+        }
+
+        .resume .menu .menu-content {
+            padding: 10px 25px;
+        }
+
+        .resume .skills li {
+            /* display: flex; */
+            margin-bottom: 10px;
+            color: var(--menu-font-color);
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resume .skills .skill-level {
+            width: 80%;
+            /* margin: 0 5px; */
+            margin: 5px 0px 0px 15px;
+            height: 5px;
+            /* background: #009fd9; */
+            background: var(--menu-font-color);
+            position: relative;
+        }
+
+        .resume .skills .skill-level span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #fff;
+        }
+
+        /*-------------------*/
+
+        .resume .main-about p {
+            margin-top: 10px;
+        }
+
+        .resume .main h2 {
+            color: var(--key-color);
+        }
+
+        .resume .main-experience>ul {
+            margin-top: 20px;
+            margin-left: 30px;
+        }
+
+        /* Relative, bo zaraz będę po lewej stronie kładł kreskę pionową z kółkami z absolute */
+        .resume .main-experience>ul>li {
+            position: relative;
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+
+        .resume .main-experience ul li:last-child {
+            padding-bottom: 0px;
+        }
+
+        /* Kreska po lewej */
+        .resume .main-experience>ul>li:after {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: -10px;
+            width: 2px;
+            height: calc(100% - 6px);
+            background: var(--key-color)
+        }
+
+        /** Kółka */
+        .resume .main-experience>ul>li:before {
+            content: "";
+            /* background-color: white; */
+            position: absolute;
+            top: 5px;
+            left: -14px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            border: 2px solid var(--key-color)
+        }
+    </style>
+    <div class='resume'>
+        <div class='menu'>
+            <div class='pic'>
+                <img src='assets/images/me.jpg'>
+            </div>
+
+            <div class='menu-content'>
+
+                <div class='title'>
+                    <h2>Konrad Papała</h2>
+                    <p>Senior Web Developer</p>
+                </div>
+
+                <div class='section contact'>
+                    <!-- <h2>Contact</h2> -->
+                    <ul>
+                        <li><a href='https://www.google.com/maps/place/Bydgoszcz/@53.128129,17.9780521,12z/data=!4m5!3m4!1s0x47031386764ebd6f:0xe49ee48c4b65f30e!8m2!3d53.1234804!4d18.0084378'>
+                            <i class="icon far fa-address-book"></i>Bydgoszcz, Poland »</a>
+                        </li>
+
+                        <li><a href='mailto:konradpapala@gmail.com'><i class='icon far far fa-envelope'></i>konradpapala@gmail.com »</a></li>
+                        <li><a href='https://github.com/kpion'><i class='icon fab fa-github'></i>GitHub »</a></li>
+                        <li><a href='https://www.linkedin.com/in/konrad-papala/'>
+                            <i class='icon fab fa-linkedin'></i>LinkedIn »</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class='section skill'>
+                    <h2>Skills</h2>
+                    <ul class='section skills'>
+                        <li>
+                            <div class='skill-name'>PHP</div>
+                            <div class='skill-level'><span style='width:95%'></span></div>
+                        </li>
+                        <li>
+                            <div class='skill-name' title='Including NodeJS and newest ES'>JavaScript</div>
+                            <div class='skill-level'><span style='width:90%'></span></div>
+                        </li>
+                        <li>
+                            <div class='skill-name' title='MySQL/MariaDB'>SQL</div>
+                            <div class='skill-level'><span style='width:80%'></span></div>
+                        </li>
+                        <li>
+                            <div class='skill-name' title='CSS, Photoshop'>Design</div>
+                            <div class='skill-level'><span style='width:50%'></span></div>
+                        </li>
+                        <li>
+                            <div class='skill-name' title='Usually with paprika :)'>Making a burrito</div>
+                            <div class='skill-level'><span style='width:100%'></span></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class='section nore'>
+                    <h2>More</h2>
+                    <ul class='section'>
+                        <li>
+                            <a href = 'assets/sources/sources.zip'>Code snippets</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!----------------------   -------------------->
+
+        <div class='main'>
+            <div class='section main-about'>
+                <h2>About</h2>
+                <p>10 years of experience in PHP/MySql/JS, with frameworks like (starting from the beginning)
+                    Codeigniter, Laravel, Symfony, also microframeworks like Slim and Silex.</p>
+                <p>When it comes to JS, then except to the obvious jQuery, also ReactJS (including mobile applications),
+                    and a smaller experience with vuejs.</p>
+            </div>
+
+            <div class="section main-experience">
+                <div class="title">
+                    <h2>Work Experience</h2>
+                </div>
+                <ul>
+                    <li>
+                        <h3>2021-01 - 2021-09</h3>
+                        <div class="info">
+                            <h4><a href='https://mediart.pl'>Mediart »</a></h4>
+                            <p>Refactoring a big project based on PHP, MariaDB, 2 Windows Servers, 1 Linux Server.</p>
+                            <p>
+                                Refactoring was needed to add required features.
+                                Converted procedural JavaScript to full OOP. Optimized database queries (down from 1
+                                minute to 2 seconds).
+                                And many others things.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h3>2020-11 - 2021-01</h3>
+                        <div class="info">
+                            <h4>Freelancer</h4>
+                            <p>Lots of small and medium projects</p>
+                            <p>
+                                Most based on PHP and MariaDB/MySql. One based on NodeJS.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>2020-04 - 2020-11</h3>
+                        <div class="info">
+                            <h4><a href = 'https://souvre.com/'>Souvre.com »</a></h4>
+                            <p>Coworking on a CRM for a company having around 100.000 clients. Technology stack as
+                                usual.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>2017-01 - 2020-04</h3>
+                        <div class="info">
+                            <h4>Freelancer</h4>
+                            <p>Lots of small and medium projects</p>
+                            <p>
+                                Most based on PHP and MariaDB/MySql.
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <h3>2015-07 - 2016-11</h3>
+                        <div class="info">
+                            <h4><a href = 'https://www.domena.pl/'>Agnat (domena.pl) »</a></h4>
+                            <p>
+                                Coworking on a system for managing domains and clients, for one of the leaders in the
+                                domain registry industry in Poland (5th position).
+                                Technology stack as usual.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <h3>2011 - 2015</h3>
+                        <div class="info">
+                            <h4>Grupa Alias (Alias Group)</h4>
+                            <p>
+                                Managing a group of developers and designers. <br>
+                                Development of a CMS project, which in turn was used in various projects, small and big.
+                                Also:
+                            <ul class='list'>
+                                <li>Payday loans system. Full CRM, automatic notifications about any repayment delays,
+                                    statistics, forecasts.</li>
+                                <li>Accreditation system for various events (among others, it was in use during <a
+                                        href='https://en.wikipedia.org/wiki/2014_FIVB_Volleyball_Men%27s_World_Championship'>2014
+                                        FIVB Volleyball Men's World Championship</a>, with success).</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
