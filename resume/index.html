@@ -81,8 +81,8 @@
             font-family: "Arial", "sans-serif";
 
             color: #444;
-            /* background-image: linear-gradient(135deg, #777, #FFF); */
-            background-color:black;
+            background-image: linear-gradient(135deg, #777, #FFF);
+            /* background-color:black; */
         }
 
         h2 {
@@ -244,6 +244,11 @@
         }
 
         @media print {
+            
+            .screen-only{
+                display:none;
+            }
+
             body {
                 background: none;
             }
@@ -326,10 +331,14 @@
                                 Tu dajemy adres bezwzględny do produkcji, by w razie generowania pdf z lokala też poszedł ten adres,
                                 a nie localhost.
                             -->
-                            <a href = 'https://kpion.github.io/resume/assets/sources/sources.zip'>Code snippets (zip)</a>
+                            <a href = 'https://kpion.github.io/resume/assets/misc/sources.zip'>Code snippets (zip)</a>
                         </li>
                         <li>
                             <a href = 'https://kpion.github.io/resume/index.html'>Online version</a>
+                        </li>
+                        <!-- Tylko gdy www i na ekranie, gdy wyplute do pdf, to nie chcemy tego-->
+                        <li class = 'screen-only'>
+                            <a href = 'assets/misc/resume.pdf'>PDF version</a>
                         </li>
 
                     </ul>
