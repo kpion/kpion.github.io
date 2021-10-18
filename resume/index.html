@@ -34,9 +34,15 @@
             /* --key-color: #0bb5e4; */
             --key-color: #772323;
 
+            /* Używane przy .emphasize, tzn. podkreślanie technologii w .main*/
+            --secondary-color: #005F73;
+
             /* Kolor fontu w menu */
             /* --menu-font-color:#b1eaff; */
-            --menu-font-color: #d7a3a3;
+            /* --menu-font-color: #d7a3a3; */
+            --menu-font-color: #EFCCCC;
+
+            --menu-skill-whole-background-color: #a77373;
         }
 
         * {
@@ -75,15 +81,9 @@
             font-family: "Arial", "sans-serif";
 
             color: #444;
-            background-image: linear-gradient(135deg, #777, #FFF);
+            /* background-image: linear-gradient(135deg, #777, #FFF); */
+            background-color:black;
         }
-
-        @media print {
-            body {
-                background: none
-            }
-        }
-
 
         h2 {
             font-weight: 700;
@@ -145,6 +145,7 @@
 
         .resume .menu .pic img {
             width: 100%;
+            /* border-radius: 50%; */
         }
 
         .resume .contact .icon {
@@ -156,7 +157,8 @@
         }
 
         .resume .menu .menu-content {
-            padding: 10px 25px;
+            /* padding: 10px 25px; */
+            padding: 25px 25px 10px 25px;
         }
 
         .resume .skills li {
@@ -167,16 +169,17 @@
             align-items: center;
         }
 
+        /* Definicja tła levelu */
         .resume .skills .skill-level {
             width: 80%;
             /* margin: 0 5px; */
             margin: 5px 0px 0px 15px;
             height: 5px;
-            /* background: #009fd9; */
-            background: var(--menu-font-color);
+            background: var(--menu-skill-whole-background-color);
             position: relative;
         }
 
+        /* Definicja kreski symbolizującej poziom */
         .resume .skills .skill-level span {
             position: absolute;
             top: 0;
@@ -195,6 +198,11 @@
             color: var(--key-color);
         }
 
+        .resume .main .emphasize{
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
         .resume .main-experience>ul {
             margin-top: 20px;
             margin-left: 30px;
@@ -204,7 +212,7 @@
         .resume .main-experience>ul>li {
             position: relative;
             padding-left: 20px;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
         }
 
         .resume .main-experience ul li:last-child {
@@ -234,6 +242,23 @@
             border-radius: 50%;
             border: 2px solid var(--key-color)
         }
+
+        @media print {
+            body {
+                background: none;
+            }
+            .resume{
+                margin:0px;
+                height:100%;
+            }
+            .resume .menu{
+                height:100vh;
+                margin:0px;
+            }
+            .resume .main{
+                margin-top:20px;
+            }
+        }        
     </style>
     <div class='resume'>
         <div class='menu'>
@@ -283,6 +308,10 @@
                             <div class='skill-level'><span style='width:50%'></span></div>
                         </li>
                         <li>
+                            <div class='skill-name' title='According to https://app.testdome.com'>Linux administration</div>
+                            <div class='skill-level'><span style='width:70%'></span></div>
+                        </li>
+                        <li>
                             <div class='skill-name' title='Usually with paprika :)'>Making a burrito</div>
                             <div class='skill-level'><span style='width:100%'></span></div>
                         </li>
@@ -291,10 +320,18 @@
 
                 <div class='section nore'>
                     <h2>More</h2>
-                    <ul class='section'>
+                    <ul class='list'>
                         <li>
-                            <a href = 'assets/sources/sources.zip'>Code snippets (zip)</a>
+                            <!-- 
+                                Tu dajemy adres bezwzględny do produkcji, by w razie generowania pdf z lokala też poszedł ten adres,
+                                a nie localhost.
+                            -->
+                            <a href = 'https://kpion.github.io/resume/assets/sources/sources.zip'>Code snippets (zip)</a>
                         </li>
+                        <li>
+                            <a href = 'https://kpion.github.io/resume/index.html'>Online version</a>
+                        </li>
+
                     </ul>
                 </div>
 
@@ -307,10 +344,10 @@
         <div class='main'>
             <div class='section main-about'>
                 <h2>About</h2>
-                <p>10 years of experience in PHP/MySql/JS, with frameworks like (starting from the beginning)
-                    Codeigniter, Laravel, Symfony, also microframeworks like Slim and Silex.</p>
-                <p>When it comes to JS, then except to the obvious jQuery, also ReactJS (including mobile applications),
-                    and a smaller experience with vuejs.</p>
+                <p>10 years of experience in <span class = 'emphasize'>PHP/MySql/JS</span>, with frameworks like (starting from the beginning)
+                    <span class = 'emphasize'>Codeigniter, Laravel, Symfony</span>, also microframeworks like <span class = 'emphasize'>Slim</span> and <span class = 'emphasize'>Silex</span>.</p>
+                <p>When it comes to JS, then except to the obvious jQuery, also <span class = 'emphasize'>ReactJS</span>,
+                    and a smaller experience with <span class = 'emphasize'>VueJS</span>.</p>
             </div>
 
             <div class="section main-experience">
@@ -322,7 +359,7 @@
                         <h3>2021-01 - 2021-09</h3>
                         <div class="info">
                             <h4><a href='https://mediart.pl'>Mediart »</a></h4>
-                            <p>Refactoring a big project based on PHP, MariaDB, 2 Windows Servers, 1 Linux Server.</p>
+                            <p>Refactoring a big project based on PHP, <span class = 'emphasize'>MariaDB</span>, 2 Windows Servers, 1 Linux Server.</p>
                             <p>
                                 Refactoring was needed to add required features.
                                 Converted procedural JavaScript to full OOP. Optimized database queries (down from 1
@@ -338,7 +375,7 @@
                             <h4>Freelancer</h4>
                             <p>Lots of small and medium projects</p>
                             <p>
-                                Most based on PHP and MariaDB/MySql. One based on NodeJS.
+                                Most based on PHP and MariaDB/MySql. One based on <span class = 'emphasize'>NodeJS</span>.
                             </p>
                         </div>
                     </li>
@@ -346,8 +383,7 @@
                         <h3>2020-04 - 2020-11</h3>
                         <div class="info">
                             <h4><a href = 'https://souvre.com/'>Souvre.com »</a></h4>
-                            <p>Coworking on a CRM for a company having around 100.000 clients. Technology stack as
-                                usual.</p>
+                            <p>Coworking on a <span class = 'emphasize'>CRM</span> for a company serving around 100.000 clients. Technology stack as usual.</p>
                         </div>
                     </li>
                     <li>
@@ -356,7 +392,7 @@
                             <h4>Freelancer</h4>
                             <p>Lots of small and medium projects</p>
                             <p>
-                                Most based on PHP and MariaDB/MySql.
+                                Technology stack as usual (PHP (Symfony), MySQL, JS) + <span class = 'emphasize'>React Native</span> (mobile applications).
                             </p>
                         </div>
                     </li>
@@ -367,7 +403,7 @@
                             <p>
                                 Coworking on a system for managing domains and clients, for one of the leaders in the
                                 domain registry industry in Poland (5th position).
-                                Technology stack as usual.
+                                Technology stack as usual + <span class = 'emphasize'>PostgreSQL</span>.
                             </p>
                         </div>
                     </li>
@@ -378,14 +414,14 @@
                             <h4>Grupa Alias (Alias Group)</h4>
                             <p>
                                 Managing a group of developers and designers. <br>
-                                Development of a CMS project, which in turn was used in various projects, small and big.
+                                Development of a <span class = 'emphasize'>CMS</span> project, which in turn was used in various projects, small and big.
                                 Also:
                             <ul class='list'>
                                 <li>Payday loans system. Full CRM, automatic notifications about any repayment delays,
                                     statistics, forecasts.</li>
                                 <li>Accreditation system for various events (among others, it was in use during <a
-                                        href='https://en.wikipedia.org/wiki/2014_FIVB_Volleyball_Men%27s_World_Championship'>2014
-                                        FIVB Volleyball Men's World Championship</a>, with success).</li>
+                                        href='https://en.wikipedia.org/wiki/2014_FIVB_Volleyball_Men%27s_World_Championship'>2013, 2014, 2017
+                                        FIVB Volleyball Men's World/Europe Championship</a>, with success).</li>
                             </ul>
                             </p>
                         </div>
