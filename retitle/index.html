@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ReTitle</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="./assets/css/style.css"> -->
+        <!-- <script src='./assets/js/app.js'></script> -->
+        <!-- <script src='./assets/js/lightdom.js'></script> -->
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+            *, *::before, *::after {
+                box-sizing: border-box;
+            }
+
+            :root {
+              /* --second-color: #056f94; */
+              --second-color: #2585a8;
+            }
+
+            img {
+                max-width: 100%;
+            }
+            
+            ul {
+                list-style-type: none;
+                margin: 0px;
+                padding: 0px;
+            }
+   
+            
+            h1, h2, h3 {
+                font-weight: 600;
+                color: #fff;
+                line-height: normal;
+                margin: 0.2em 0;
+            }
+            
+            a, a:visited {
+                text-decoration: none;
+                /* color: #fff; */
+                color: var(--second-color);
+            }
+
+         
+            html, body {
+                height: 100%;
+                width:100%;
+            }
+            
+            body {
+                margin: 0;
+                /* font-family: "Roboto", "sans-serif"; */
+                font-family: "Poppins", sans-serif;
+                line-height: 1.5;
+                color: #ddd;
+                background-color: #333;
+                
+            }
+
+            body::before {
+                content: "";
+                position: absolute;
+                top: 0; 
+                left: 0;
+                width: 100%; 
+                height: 100%;  
+                opacity: .2; 
+                z-index: -1;
+                background: url('./assets/img/noise-scratch-background-2.jpg');
+                /* background-repeat: no-repeat; */
+            }
+
+            main {
+                margin: auto;
+                margin-top:10%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                /* background-color: var(--second-color); */
+                padding:20px;
+            }
+
+            .main-content {
+                /* margin: auto; */
+                /* width: auto;  */
+                /* min-width:45%; */
+                width: 70%;
+
+            }
+
+
+            .user-title-input {
+                padding:10px;
+                color: var(--second-color);
+                width: 80%;
+            }
+
+            .user-title-input::placeholder {
+                color: var(--second-color);
+                opacity: 0.6; /* Firefox */
+                font-size: 1.2em;
+            }
+
+            .info {
+                display: none;
+                /* width:50%; */
+
+            }
+            .info .info-screenshot {
+                width:60%;
+                margin-left:20%;
+            }
+
+            .info .info-screenshot p {
+                font-size: 0.7em;
+            }
+
+            button {
+                position: relative;
+                display: inline-block;
+                background:none;
+                padding: 10px;
+                border-radius: 4px;
+                color: #03e9f4;
+                border: 1px solid white;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                cursor:pointer;
+                opacity:0.7;
+                transition: 0.2s ease-out;
+            }
+
+            /* Neon effect */
+            button:hover {
+                opacity: 1;
+                text-shadow: 
+                0 0 7px rgba(255,255,255,0.5),
+                0 0 10px rgba(255,255,255,0.5),
+                0 0 31px rgba(255,255,255,0.5),
+                0 0 52px rgba(0,255,100,0.5),
+                0 0 92px rgba(0,255,100,0.5),
+                0 0 110px rgba(0,255,100,0.5),
+                0 0 120px rgba(0,255,100,0.5),
+                0 0 141px rgba(0,255,100,0.5);                
+
+            }
+
+            .set-user-title-btn{
+                margin-left:20px;
+                width: 100px;
+                padding: 10px; 
+            }
+
+            .toggle-info {
+                margin-top:20px;    
+            }
+
+            .toggle-info-btn.toggle-info-btn-off::after{
+                content: ' ↓';
+            }
+
+            .toggle-info-btn.toggle-info-btn-on::after{
+                content: ' ↑';
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <main class='main-wrapper'>
+            <div class = "main-content">
+                <h1>ReTitle</h1>
+                <form class = 'user-title'>
+                    <input type = "text" class = "user-title-input" placeholder="Tab title">
+                    <button ty[e = 'submit' class = "set-user-title-btn">Set</button>
+                </form>
+                <div class = "toggle-info">
+                    <button class = "toggle-info-btn toggle-info-btn-off">What is this</button>
+                </div>
+                <div class = "info">
+                    <h2>Category</h2>
+
+                    <p>
+                        Pretty Weird Stuff.
+                    </p>
+
+                    <h2>
+                        What is this?
+                    </h2>
+
+                    <p>
+                        Hey there. There is a very useful (in my opinion) extension for Firefox, called "Tree Style Tab". When you have lots and lots
+                        of tabs opened, you might want to organize them in a tree-like structure, keeping related things together.
+                        Here is the extension: 
+                        <a href = "https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/" >
+                            https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/
+                        </a>
+                    </p>
+                    <div class = 'info-screenshot'>
+                            <img src = "./assets/img/tree-style-tab-ff-extension.png">
+                            <p>
+                                test test test
+                                Src: <a href = "https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/">TST extension website</a>
+                            </p>
+                        </a>
+                    </div>
+
+                    <p>And here is an excerpt from the description:</p>
+                    <p style = "font-style: italic;">
+                        This extension provides the ability to work with tabs as "trees".
+
+                        New tabs opened from the current tab are automatically organized as "children" of the current tab.
+                        Such "branches" are easily folded (collapsed) by clicking on the arrow shown in the "parent" tab, so you no longer need to suffer from too many visible tabs.
+                        If you want, you can restructure the tree... (etc)
+                    </p>
+
+                    <p>
+                        You can install the extension from <a href = "https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/">here</a> (Firefox only)
+                    </p>
+
+                    <p>
+                        And now - every now and then... @todo: complete it.
+                    </p>
+                </div>
+            </div>
+            <footer></footer>
+        </main>
+        <!--end of whole wrapper -->
+        <script>
+            function init(){
+
+                // Changing document title according to the url param 'title'
+                // Or vice versa.
+                const urlParams = new URLSearchParams(window.location.search);
+                const docTitle = urlParams.get('title')
+                // Input box with a title
+                const userTitleInput = document.querySelector('.user-title-input');
+                const toggleInfoBtn = document.querySelector('.toggle-info-btn');
+                const infoDiv = document.querySelector('.info');
+                if (docTitle !== null){
+                    // We have something in URL's params.
+                    document.title = docTitle;
+                    userTitleInput.value = docTitle;
+                }else {
+                    // The URL title is empty.
+                    
+                }
+
+                // Reaction to clicks on buttons.
+
+                //// 'set' button.
+                document.querySelector('.user-title').addEventListener('submit', (event)=>{
+                    event.preventDefault();
+                    let baseUrl = window.location.href.split('?')[0];
+                    window.location.href = `${baseUrl}?title=${userTitleInput.value}`;
+                })
+
+                //// 'What is this' button (.info div).
+                document.querySelector('.toggle-info-btn').addEventListener('click', ()=>{
+                    if (toggleInfoBtn.classList.contains('toggle-info-btn-off')){
+                        toggleInfoBtn.classList.remove('toggle-info-btn-off')
+                        toggleInfoBtn.classList.add('toggle-info-btn-on')
+                        infoDiv.style.display = 'block';
+                    } else {
+                        toggleInfoBtn.classList.remove('toggle-info-btn-on')
+                        toggleInfoBtn.classList.add('toggle-info-btn-off')
+                        infoDiv.style.display = 'none';
+                    }
+                    
+                })
+
+
+            }
+            if (document.readyState === "loading") {//might be 'loading' or 'complete'
+                document.addEventListener("DOMContentLoaded", init);
+            } else {//dom already loaded, so the above event will never fire, so:  
+                init();
+            }            
+        </script>
+    </body>
+</html>
