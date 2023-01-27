@@ -22,16 +22,10 @@
                 max-width: 100%;
             }
             
-            ul {
-                list-style-type: none;
-                margin: 0px;
-                padding: 0px;
-            }
-   
             
             h1, h2, h3 {
                 font-weight: 600;
-                color: #fff;
+                color: #ccc;
                 line-height: normal;
                 margin: 0.2em 0;
             }
@@ -44,7 +38,7 @@
 
          
             html, body {
-                height: 100%;
+                height: 100vh;
                 width:100%;
             }
             
@@ -53,27 +47,26 @@
                 /* font-family: "Roboto", "sans-serif"; */
                 font-family: "Poppins", sans-serif;
                 line-height: 1.5;
-                color: #ddd;
-                background-color: #333;
+                color: #888;
+                background-color: black;
+                /* background: url('./assets/img/textures/noise-dark-1.png'); */
                 
             }
-
-            body::before {
+            /* body::before {
                 content: "";
                 position: absolute;
                 top: 0; 
                 left: 0;
                 width: 100%; 
-                height: 100%;  
+                height: 100vh;  
                 opacity: .2; 
                 z-index: -1;
                 background: url('./assets/img/noise-scratch-background-2.jpg');
-                /* background-repeat: no-repeat; */
-            }
+            } */
 
             main {
+                position: relative;
                 margin: auto;
-                margin-top:10%;
                 width: 100%;
                 display: flex;
                 align-items: center;
@@ -83,12 +76,44 @@
                 padding:20px;
             }
 
+            /* main::before {
+                content: "";
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%; 
+                height: 100%;
+                background:radial-gradient(circle at 50% 50%, rgba(255, 117, 117, 1) 0%, rgba(250, 139, 139, 0.05) 99%);
+                background-image: url('./assets/img/textures/Vein 13 - 512x512.png');
+                opacity:1;
+            } */
+
+            .background {
+                position: absolute;
+                top: 0; 
+                left: 0;
+                width: 100%; 
+                height: 100%;
+                background-image: url('./assets/img/textures/Vein 13 - 512x512.png');
+                opacity:0.1;
+            }
+
+            .background-gradient{
+                position: absolute;
+                top: 0; 
+                left: 0;
+                width: 100%; 
+                height: 100%;
+                /* background:radial-gradient(circle at 50% 50%, rgba(255, 117, 117, 1) 0%, rgba(250, 139, 139, 0.05) 99%); */
+                background:radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 40%);
+            }
+
             .main-content {
+                margin-top:10%;
+                z-index: 2;
                 /* margin: auto; */
                 /* width: auto;  */
                 /* min-width:45%; */
                 width: 70%;
-
             }
 
 
@@ -105,9 +130,8 @@
             }
 
             .info {
-                display: none;
-                /* width:50%; */
-
+                /* display: none; */ /*@todo to odkomentować*/
+                visibility: hidden;
             }
             .info .info-screenshot {
                 width:60%;
@@ -116,8 +140,12 @@
 
             .info .info-screenshot p {
                 font-size: 0.7em;
+                margin: 0px;
+                text-align: right;
             }
-
+            .info > p {
+                margin-left:20px;
+            }
             button {
                 position: relative;
                 display: inline-block;
@@ -172,14 +200,16 @@
     </head>
     <body>
         <main class='main-wrapper'>
+            <div class = "background"></div>
+            <div class = "background-gradient"></div>
             <div class = "main-content">
-                <h1>ReTitle</h1>
+                <h1>tabTitle</h1>
                 <form class = 'user-title'>
                     <input type = "text" class = "user-title-input" placeholder="Tab title">
                     <button ty[e = 'submit' class = "set-user-title-btn">Set</button>
                 </form>
                 <div class = "toggle-info">
-                    <button class = "toggle-info-btn toggle-info-btn-off">What is this</button>
+                    <button class = "toggle-info-btn toggle-info-btn-off">About</button>
                 </div>
                 <div class = "info">
                     <h2>Category</h2>
@@ -203,8 +233,7 @@
                     <div class = 'info-screenshot'>
                             <img src = "./assets/img/tree-style-tab-ff-extension.png">
                             <p>
-                                test test test
-                                Src: <a href = "https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/">TST extension website</a>
+                                Image src: <a href = "https://addons.mozilla.org/en-US/firefox/addon/tree-style-tab/">TST extension website</a>
                             </p>
                         </a>
                     </div>
@@ -223,7 +252,45 @@
                     </p>
 
                     <p>
-                        And now - every now and then... @todo: complete it.
+                        And now - every now and then one needs to name a node in a tree, like "Project XYZ", where we can keep stuff related to this category. 
+                        And here is when this simple script comes in.
+                    </p>
+
+                    <h2>Usage</h2>
+                    <p>
+                        Just open this website in another tab, change its title to whaterver you want. Then, using Tree Style Tab extension, move all related
+                        tabs to this newly created.<br>
+                        So, you can have a structure, like this:
+                        <ul>
+                            <li><b>Project X</b> (tab by tabTile)
+                                <ul>
+                                    <li>http://localhost/ProjectX (ordinary tab)</li>
+                                    <li>https://....production...</li>
+                                    <li>https://....jira...</li>
+                                </ul>
+                            </li>
+                            <li><b>Project Y</b> (tab by tabTile)
+                                <ul>
+                                    <li>http://localhost/ProjectY (ordinary tab)</li>
+                                    <li>https://some-usefull-library...</li>
+                                    <li><b>Tasks</b> (tab by tabTile)
+                                        <ul>
+                                            <li>
+                                                Some issue with...
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><b>Free Time</b> (tab by tabTile)
+                                <ul>
+                                    <li>The IT Crowd (ordinary tab)</li>
+                                    <li>how to boil water for tea</li>
+                                </ul>
+                            </li>
+                        </ul>
+
                     </p>
                 </div>
             </div>
@@ -264,11 +331,12 @@
                     if (toggleInfoBtn.classList.contains('toggle-info-btn-off')){
                         toggleInfoBtn.classList.remove('toggle-info-btn-off')
                         toggleInfoBtn.classList.add('toggle-info-btn-on')
-                        infoDiv.style.display = 'block';
+                        //infoDiv.style.display = 'block';
+                        infoDiv.style.visibility = 'visible';
                     } else {
                         toggleInfoBtn.classList.remove('toggle-info-btn-on')
                         toggleInfoBtn.classList.add('toggle-info-btn-off')
-                        infoDiv.style.display = 'none';
+                        infoDiv.style.visibility = 'hidden';
                     }
                     
                 })
