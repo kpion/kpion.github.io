@@ -309,7 +309,7 @@
                 const userTitleInput = document.querySelector('.user-title-input');
                 const toggleInfoBtn = document.querySelector('.toggle-info-btn');
                 const infoDiv = document.querySelector('.info');
-                if (docTitle !== null){
+                if (docTitle !== null && docTitle !== ''){
                     // We have something in URL's params.
                     document.title = docTitle;
                     userTitleInput.value = docTitle;
