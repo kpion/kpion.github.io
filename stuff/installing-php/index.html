@@ -123,7 +123,7 @@ php${phpVersion}-readline
 and probably a few others, like libargon2, libsodium, libssl1 	
 `;	
 				*/
-				let code2 = `sudo apt install php${phpVersion}-curl php${phpVersion}-dev php${phpVersion}-gd php${phpVersion}-mbstring php${phpVersion}-zip php${phpVersion}-mysql php${phpVersion}-xml`;
+				let code2 = `sudo apt install php${phpVersion}-fpm php${phpVersion}-curl php${phpVersion}-dev php${phpVersion}-gd php${phpVersion}-mbstring php${phpVersion}-zip php${phpVersion}-mysql php${phpVersion}-xml`;
 				document.querySelector('#generator #code-1').textContent =  code1;
 				//document.querySelector('#generator #info').textContent =  info;
 				document.querySelector('#generator #code-2').textContent =  code2;
