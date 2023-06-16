@@ -85,6 +85,12 @@ header{
     background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
 }
 
+footer{
+    width:inherit;
+    color:white;
+    background: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+}
+
 @media (max-width: $mobile-trigger-width)  {
     /*
     these changes cause some troubles, e.g. when the #nav becomes fixed its width is 
